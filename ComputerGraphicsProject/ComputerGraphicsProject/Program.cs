@@ -1,3 +1,6 @@
+using ComputerGraphicsProject.Interfaces;
+using ComputerGraphicsProject.Services;
+
 namespace ComputerGraphicsProject
 {
     public class Program
@@ -7,7 +10,10 @@ namespace ComputerGraphicsProject
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddTransient<INewtonFractalService, NewtonFractalService>();
             builder.Services.AddControllersWithViews();
+            
+
 
             var app = builder.Build();
 

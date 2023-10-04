@@ -45,9 +45,12 @@ namespace ComputerGraphicsProject.Models
             }
         }
 
-        Bitmap bitmap;
-        public void CreateBitMap() {
-            bitmap = new Bitmap(width, height);
+        public Bitmap Bitmap { get; set; }
+
+        public FractalBitmapModel()
+        {
+            Width = 500;
+            Height = 500;
         }
     }
 }

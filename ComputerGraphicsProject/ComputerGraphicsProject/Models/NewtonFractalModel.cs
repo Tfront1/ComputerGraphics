@@ -2,17 +2,21 @@
 {
     public class NewtonFractalModel
     {
-        FractalBitmapModel fractalBitmapModel;
+        public FractalBitmapModel FractalBitmapModel { get; set; }
 
         public int MaxIterations { get; set; }
         public double Threshold { get; set; }
 
-        int exponent = 4;
+        public int Exponent { get; set; }
+
+        public int realC { get; set; }
+        public int imaginaryC { get; set; }
         public NewtonFractalModel()
         {
-            fractalBitmapModel = new FractalBitmapModel();
+            FractalBitmapModel = new FractalBitmapModel();
             MaxIterations = 100;
             Threshold = 0.0001;
+            Exponent  = 4;
         }
 
     }
