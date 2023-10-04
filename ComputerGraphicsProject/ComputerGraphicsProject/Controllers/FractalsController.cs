@@ -8,7 +8,11 @@ namespace ComputerGraphicsProject.Controllers
         {
             return View();
         }
-        public IActionResult Viceks()
+        public IActionResult Vicek()
+        {
+            return View();
+        }
+        public IActionResult Newton()
         {
             return View();
         }

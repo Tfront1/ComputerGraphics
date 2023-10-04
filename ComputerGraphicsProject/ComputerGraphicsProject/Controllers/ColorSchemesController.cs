@@ -8,5 +8,13 @@ namespace ComputerGraphicsProject.Controllers
         {
             return View();
         }
+        public IActionResult Hsl()
+        {
+            return View();
+        }
+        public IActionResult Cmyk()
+        {
+            return View();
+        }
     }
 }
