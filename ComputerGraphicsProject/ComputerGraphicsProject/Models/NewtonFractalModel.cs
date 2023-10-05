@@ -3,6 +3,7 @@
     public class NewtonFractalModel
     {
         public FractalBitmapModel FractalBitmapModel { get; set; }
+        public FractalBytesModel FractalBytesModel { get; set; }
 
         public int MaxIterations { get; set; }
         public double Threshold { get; set; }
