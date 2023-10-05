@@ -29,22 +29,15 @@ namespace ComputerGraphicsProject.Controllers
         public IActionResult Newton(NewtonFractalModel newtonFractalModel)
         {
             Complex c = new Complex(newtonFractalModel.realC, newtonFractalModel.imaginaryC);
-            newtonFractalModelCtor.FractalBitmapModel.Bitmap = new NewtonFractalService().
-                GenerateFractal(newtonFractalModel.FractalBitmapModel.Width, 
+
+            newtonFractalModelCtor.FractalBytesModel = FractalBytesModel.GetInstance();
+            newtonFractalModelCtor.FractalBytesModel.FractalBytes = new NewtonFractalService().
+                GenerateFractal(newtonFractalModel.FractalBitmapModel.Width,
                 newtonFractalModel.FractalBitmapModel.Height,
-                newtonFractalModel.MaxIterations, newtonFractalModel.Threshold, 
-                newtonFractalModel.Exponent, 
+                newtonFractalModel.MaxIterations, newtonFractalModel.Threshold,
+                newtonFractalModel.Exponent,
                 c);
-            using (MemoryStream ms = new MemoryStream())
-            {
-                // Save the Bitmap as PNG to the MemoryStream.
-                newtonFractalModelCtor.FractalBitmapModel.Bitmap.Save(ms, ImageFormat.Png);
-
-                newtonFractalModelCtor.FractalBytesModel = FractalBytesModel.GetInstance();
-                newtonFractalModelCtor.FractalBytesModel.FractalBytes = ms.ToArray();
-
-                return View(newtonFractalModelCtor);
-            }
+            return View(newtonFractalModelCtor);
         }
         [HttpGet]
         public IActionResult GetFractalImage()
@@ -56,5 +49,7 @@ namespace ComputerGraphicsProject.Controllers
             }
             return File(newtonFractalModelCtor.FractalBytesModel.FractalBytes, "image/png");
         }
+
     }
 }
+

@@ -1,12 +1,14 @@
 ﻿using ComputerGraphicsProject.Interfaces;
+using ComputerGraphicsProject.Models;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Numerics;
 
 namespace ComputerGraphicsProject.Services
 {
     public class NewtonFractalService : INewtonFractalService
     {
-        public Bitmap GenerateFractal(int width, int height, int maxIterations, double threshold, int exponent,Complex c)
+        public byte[] GenerateFractal(int width, int height, int maxIterations, double threshold, int exponent,Complex c)
         {
             Bitmap bitmap = new Bitmap(width, height);
 
@@ -26,7 +28,12 @@ namespace ComputerGraphicsProject.Services
                     bitmap.SetPixel(x, y, pixelColor);
                 }
             }
-            return bitmap;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bitmap.Save(ms, ImageFormat.Png);
+                byte[] result = ms.ToArray();
+                return result;
+            }
         }
 
         private Color GetColorForPixel(Complex pixel, Complex c, int maxIterations, double threshold, int exponent)

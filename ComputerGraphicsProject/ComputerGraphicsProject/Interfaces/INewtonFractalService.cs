@@ -5,6 +5,6 @@ namespace ComputerGraphicsProject.Interfaces
 {
     public interface INewtonFractalService
     {
-        Bitmap GenerateFractal(int width, int height, int maxIterations, double threshold, int exponent, Complex c);
+        byte[] GenerateFractal(int width, int height, int maxIterations, double threshold, int exponent, Complex c);
     }
 }
