@@ -1,6 +1,6 @@
 ﻿@model ComputerGraphicsProject.Models.NewtonFractalModel;
 <canvas id="newtonCanvas" width="@Model.FractalBitmapModel.Width" height="@Model.FractalBitmapModel.Height"></canvas>
-
+<img id="fractalImage" src="@Url.Action("GetFractalImage")" />
 <form asp-action="Newton">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
@@ -17,26 +17,5 @@
         <input type="submit" value="Save" class="btn btn-primary" />
     </div>
 </form>
-<script>
-        var canvas = document.getElementById('newtonCanvas');
-        
-        var ctx = canvas.getContext('2d');
-        var imageData = ctx.createImageData(canvas.width, canvas.height);
-        console.log("start");
-        var bitmapData = @Html.Raw(Json.Serialize(Model.FractalBitmapModel.Bitmap));
-        console.log("middle");
-        for (var y = 0; y < canvas.height; y++) {
-            for (var x = 0; x < canvas.width; x++) {
-                var index = (y * canvas.width + x) * 4;
-                imageData.data[index] = bitmapData[index];
-                imageData.data[index + 1] = bitmapData[index + 1];
-                imageData.data[index + 2] = bitmapData[index + 2];
-                imageData.data[index + 3] = 255; // Прозрачность 255 (непрозрачный)
-            }
-        }
-        console.log("middle+");
-        // Отобразите imageData на канвасе
-        ctx.putImageData(imageData, 0, 0);
+<img id="fractalImage" src="" style="display:none;" />
 
-        console.log("end");
-</script>

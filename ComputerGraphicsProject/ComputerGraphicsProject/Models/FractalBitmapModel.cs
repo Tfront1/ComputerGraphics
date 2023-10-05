@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Drawing;
 
 namespace ComputerGraphicsProject.Models
 {
@@ -47,10 +48,14 @@ namespace ComputerGraphicsProject.Models
 
         public Bitmap Bitmap { get; set; }
 
+        public FileResult FractalFile { get; set; }
+        public byte[] FractalBytes { get; set; }
+
         public FractalBitmapModel()
         {
             Width = 500;
             Height = 500;
+            FractalBytes = new byte[1];
         }
     }
 }
