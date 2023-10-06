@@ -13,8 +13,8 @@ namespace ComputerGraphicsProject.Models
 
         public FractalBitmapModel()
         {
-            Width = 500;
-            Height = 500;
+            Width = 3000;
+            Height = 3000;
         }
     }
 }

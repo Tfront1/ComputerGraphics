@@ -1,6 +1,6 @@
 ﻿@model ComputerGraphicsProject.Models.NewtonFractalModel;
-<canvas id="newtonCanvas" width="@Model.FractalBitmapModel.Width" height="@Model.FractalBitmapModel.Height"></canvas>
-<img id="fractalImage" src="@Url.Action("GetFractalImage")" />
+<!--<canvas id="newtonCanvas" width="@Model.FractalBitmapModel.Width" height="@Model.FractalBitmapModel.Height"></canvas>-->
+<img id="fractalImage" src="@Url.Action("GetFractalImage")" width="500" height="500"/>
 <form asp-action="Newton">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="form-group">
