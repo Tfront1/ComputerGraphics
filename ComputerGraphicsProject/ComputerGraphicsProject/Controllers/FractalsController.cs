@@ -11,10 +11,12 @@ namespace ComputerGraphicsProject.Controllers
     public class FractalsController : Controller
     {
         NewtonFractalModel newtonFractalModelCtor = new NewtonFractalModel();
+        VicsekFractalModel vicsekFractalModelCtor = new VicsekFractalModel();
         public IActionResult Index()
         {
             return View();
         }
+        [HttpGet]
         public IActionResult Vicek()
         {
             return View();
@@ -39,8 +41,21 @@ namespace ComputerGraphicsProject.Controllers
                 c);
             return View(newtonFractalModelCtor);
         }
+
+        [HttpPost]
+        public IActionResult Vicek(VicsekFractalModel vicsekFractalModel)
+        {
+
+            vicsekFractalModelCtor.FractalBytesModel = FractalBytesModel.GetInstance();
+            vicsekFractalModelCtor.FractalBytesModel.FractalBytes = new VicsecFractalService().
+                GenerateFractal(vicsekFractalModel.FractalBitmapModel.Width/3,
+                vicsekFractalModel.FractalBitmapModel.Height/3, 
+                vicsekFractalModel.SideLength,
+                vicsekFractalModel.IterationsCount);
+            return View(vicsekFractalModelCtor);
+        }
         [HttpGet]
-        public IActionResult GetFractalImage()
+        public IActionResult GetNewtonFractalImage()
         {
             newtonFractalModelCtor.FractalBytesModel = FractalBytesModel.GetInstance();
             if (newtonFractalModelCtor.FractalBytesModel.FractalBytes == null)
@@ -48,6 +63,16 @@ namespace ComputerGraphicsProject.Controllers
                 newtonFractalModelCtor.FractalBytesModel.FractalBytes = new byte[0];
             }
             return File(newtonFractalModelCtor.FractalBytesModel.FractalBytes, "image/png");
+        }
+        [HttpGet]
+        public IActionResult GetVicsecFractalImage()
+        {
+            vicsekFractalModelCtor.FractalBytesModel = FractalBytesModel.GetInstance();
+            if (vicsekFractalModelCtor.FractalBytesModel.FractalBytes == null)
+            {
+                vicsekFractalModelCtor.FractalBytesModel.FractalBytes = new byte[0];
+            }
+            return File(vicsekFractalModelCtor.FractalBytesModel.FractalBytes, "image/png");
         }
 
     }

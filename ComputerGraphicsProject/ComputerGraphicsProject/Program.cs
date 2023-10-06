@@ -11,6 +11,7 @@ namespace ComputerGraphicsProject
 
             // Add services to the container.
             builder.Services.AddTransient<INewtonFractalService, NewtonFractalService>();
+            builder.Services.AddTransient<IVicsecFractalService, VicsecFractalService>();
             builder.Services.AddControllersWithViews();
             
 
