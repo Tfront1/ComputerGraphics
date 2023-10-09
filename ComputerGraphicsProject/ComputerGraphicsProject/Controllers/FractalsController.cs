@@ -45,6 +45,12 @@ namespace ComputerGraphicsProject.Controllers
         [HttpPost]
         public IActionResult Vicek(VicsekFractalModel vicsekFractalModel)
         {
+            TryValidateModel(vicsekFractalModel);
+            if (!ModelState.IsValid)
+            {
+
+                return RedirectToAction("Vicek");
+            }
 
             vicsekFractalModelCtor.FractalBytesModel = FractalBytesModel.GetInstance();
             vicsekFractalModelCtor.FractalBytesModel.FractalBytes = new VicsecFractalService().
