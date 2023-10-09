@@ -8,6 +8,11 @@ using ComputerGraphicsProject.Interfaces;
 
 namespace ComputerGraphicsProject.Controllers
 {
+    enum Fractals
+    {
+        Newton = 1,
+        Vicsek
+    }
     public class FractalsController : Controller
     {
         NewtonFractalModel newtonFractalModelCtor = new NewtonFractalModel();
@@ -33,6 +38,7 @@ namespace ComputerGraphicsProject.Controllers
             Complex c = new Complex(newtonFractalModel.realC, newtonFractalModel.imaginaryC);
 
             newtonFractalModelCtor.FractalBytesModel = FractalBytesModel.GetInstance();
+            newtonFractalModelCtor.FractalBytesModel.LastGeneratedFractal = (int)Fractals.Newton;
             newtonFractalModelCtor.FractalBytesModel.FractalBytes = new NewtonFractalService().
                 GenerateFractal(newtonFractalModel.FractalBitmapModel.Width,
                 newtonFractalModel.FractalBitmapModel.Height,
@@ -49,10 +55,11 @@ namespace ComputerGraphicsProject.Controllers
             if (!ModelState.IsValid)
             {
 
-                return RedirectToAction("Vicek");
+                return View();
             }
 
             vicsekFractalModelCtor.FractalBytesModel = FractalBytesModel.GetInstance();
+            vicsekFractalModelCtor.FractalBytesModel.LastGeneratedFractal = (int)Fractals.Vicsek;
             vicsekFractalModelCtor.FractalBytesModel.FractalBytes = new VicsecFractalService().
                 GenerateFractal(vicsekFractalModel.FractalBitmapModel.Width/3,
                 vicsekFractalModel.FractalBitmapModel.Height/3, 
@@ -64,7 +71,8 @@ namespace ComputerGraphicsProject.Controllers
         public IActionResult GetNewtonFractalImage()
         {
             newtonFractalModelCtor.FractalBytesModel = FractalBytesModel.GetInstance();
-            if (newtonFractalModelCtor.FractalBytesModel.FractalBytes == null)
+            if (newtonFractalModelCtor.FractalBytesModel.FractalBytes == null || 
+                newtonFractalModelCtor.FractalBytesModel.LastGeneratedFractal == (int)Fractals.Vicsek)
             {
                 newtonFractalModelCtor.FractalBytesModel.FractalBytes = new byte[0];
             }
@@ -74,13 +82,13 @@ namespace ComputerGraphicsProject.Controllers
         public IActionResult GetVicsecFractalImage()
         {
             vicsekFractalModelCtor.FractalBytesModel = FractalBytesModel.GetInstance();
-            if (vicsekFractalModelCtor.FractalBytesModel.FractalBytes == null)
+            if (vicsekFractalModelCtor.FractalBytesModel.FractalBytes == null ||
+                 vicsekFractalModelCtor.FractalBytesModel.LastGeneratedFractal == (int)Fractals.Newton)
             {
                 vicsekFractalModelCtor.FractalBytesModel.FractalBytes = new byte[0];
             }
             return File(vicsekFractalModelCtor.FractalBytesModel.FractalBytes, "image/png");
         }
-
     }
 }
 

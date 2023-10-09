@@ -1,8 +1,9 @@
 ﻿namespace ComputerGraphicsProject.Models
-{
+{ 
     public class FractalBytesModel
     {
         public byte[] FractalBytes { get; set; }
+        public int? LastGeneratedFractal { get; set; }
 
         private static FractalBytesModel instance;
 

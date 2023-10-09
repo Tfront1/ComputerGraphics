@@ -16,6 +16,7 @@ namespace ComputerGraphicsProject.Models
         {
             Width = 3000;
             Height = 3000;
+            Bitmap = new Bitmap(Width, Height);
         }
     }
 }
