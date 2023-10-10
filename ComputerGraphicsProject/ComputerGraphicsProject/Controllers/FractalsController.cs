@@ -35,7 +35,13 @@ namespace ComputerGraphicsProject.Controllers
         [HttpPost]
         public IActionResult Newton(NewtonFractalModel newtonFractalModel)
         {
-            Complex c = new Complex(newtonFractalModel.realC, newtonFractalModel.imaginaryC);
+            TryValidateModel(newtonFractalModel);
+            if (!ModelState.IsValid)
+            {
+
+                return View();
+            }
+            Complex c = new Complex(newtonFractalModel.RealC, newtonFractalModel.ImaginaryC);
 
             newtonFractalModelCtor.FractalBytesModel = FractalBytesModel.GetInstance();
             newtonFractalModelCtor.FractalBytesModel.LastGeneratedFractal = (int)Fractals.Newton;
