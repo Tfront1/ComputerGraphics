@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Drawing;
+using System.Security.Cryptography.X509Certificates;
 
 namespace ComputerGraphicsProject.Models
 {
@@ -15,6 +16,7 @@ namespace ComputerGraphicsProject.Models
         {
             Width = 3000;
             Height = 3000;
+            Bitmap = new Bitmap(Width, Height);
         }
     }
 }

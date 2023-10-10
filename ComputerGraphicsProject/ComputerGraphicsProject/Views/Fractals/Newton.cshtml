@@ -1,17 +1,16 @@
 ﻿@model ComputerGraphicsProject.Models.NewtonFractalModel;
-<!--<canvas id="newtonCanvas" width="@Model.FractalBitmapModel.Width" height="@Model.FractalBitmapModel.Height"></canvas>-->
-<img id="fractalImage" src="@Url.Action("GetFractalImage")" width="500" height="500"/>
+<img id="fractalImage" src="@Url.Action("GetNewtonFractalImage")" width="500" height="500" />
 <form asp-action="Newton">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group">
-        <label asp-for="realC" class="control-label">Real C</label>
-        <input asp-for="realC" class="form-control" />
-        <span asp-validation-for="realC" class="text-danger"></span>
+        <label asp-for="RealC" class="control-label">Real C</label>
+        <input asp-for="RealC" class="form-control" />
+        <span asp-validation-for="RealC" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="imaginaryC" class="control-label">Imaginary C</label>
-        <input asp-for="imaginaryC" class="form-control" />
-        <span asp-validation-for="imaginaryC" class="text-danger"></span>
+        <label asp-for="ImaginaryC" class="control-label">Imaginary C</label>
+        <input asp-for="ImaginaryC" class="form-control" />
+        <span asp-validation-for="ImaginaryC" class="text-danger"></span>
     </div>
     <div class="form-group">
         <input type="submit" value="Save" class="btn btn-primary" />
