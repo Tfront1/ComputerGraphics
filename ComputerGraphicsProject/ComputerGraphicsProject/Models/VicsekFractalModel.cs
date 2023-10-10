@@ -9,7 +9,6 @@ namespace ComputerGraphicsProject.Models
 
         public FractalBytesModel FractalBytesModel { get; set; }
 
-        [Range(0, 1600)]
         public int SideLength { get; set; }
         [Range(1, 6)]
         public int IterationsCount { get; set; }
