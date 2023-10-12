@@ -2,9 +2,30 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="card" style="width: 6rem; position: relative; border: none">
-    <img src="/img/FractalsPicture.png" class="card-img-top" alt="...">
-    <div class="card-body" style="width: 8rem; position: absolute; bottom: -10px; left: -10px;">
-            <h5 class="card-title" style="margin: 0; padding: 5px; font-size:1rem; color:white ">Fractals</h5>
-      </div>
+<div class="container__header">
+    <h1 class="home-page__main-text1">Computer graphics</h1>
+    <p class="home-page__main-text2">by Taras Taranko and Maksym Zelisko</p>
 </div>
+<div class="container">
+    <div class="home-page__cart-container">
+        <a asp-area="" asp-controller="Fractals" asp-action="Newton" class="home-page__cart">
+        <img src="../img/FractalsPicture.png" alt="Fractals pic.">
+        <div class="home-page__cart-text">
+            <p>Fractals</p>
+        </div>
+        </a>
+        <a asp-area="" asp-controller="Fractals" asp-action="Newton" class="home-page__cart">
+            <img src="../img/MovingImagesPicture.png" alt="Fractals pic.">
+            <div class="home-page__cart-text">
+                <p>Moving images</p>
+            </div>
+        </a>
+        <a asp-area="" asp-controller="Fractals" asp-action="Newton" class="home-page__cart">
+            <img src="../img/ColorShemesPicture.png" alt="Fractals pic.">
+            <div class="home-page__cart-text">
+                <p>Color schemes</p>
+            </div>
+        </a>
+    </div>
+</div>
+<div class="bg-photo"></div>
