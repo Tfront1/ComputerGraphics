@@ -36,8 +36,7 @@ p {
     font-family: 'Graphik-Semibold';
     src: url('/fonts/Graphik-Semibold.woff') format('woff');
 }
-.container,
-.container__header {
+.container {
     max-width: 100%;
     justify-content: center;
     overflow: auto;
@@ -45,11 +44,6 @@ p {
     margin: auto;
     padding-left: 10%;
     padding-right: 10%;
-}
-.container__header {
-    padding-top: 3%;
-    justify-content: left;
-    flex-direction: column;
 }
 
 

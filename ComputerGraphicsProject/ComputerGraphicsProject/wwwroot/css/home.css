@@ -54,6 +54,18 @@
     display: flex;
     margin-top: 15%;
 }
+.home-page__container-header {
+    max-width: 100%;
+    justify-content: center;
+    overflow: auto;
+    display: flex;
+    margin: auto;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 3%;
+    justify-content: left;
+    flex-direction: column;
+}
 @media(max-width: 810px) {
     .home-page__cart {
         width: 150px;

@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\ComputerGraphicsProject.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\css\\fractals.css",
+      "PackagePath": "staticwebassets\\css\\fractals.css"
+    },
+    {
       "Id": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\css\\global.css",
       "PackagePath": "staticwebassets\\css\\global.css"
     },

@@ -1,0 +1,15 @@
+﻿.fractals-page__container-header {
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+    margin: auto;
+    padding-top: 3%;
+}
+.fractals-page__main-text1 {
+    color: var(--main-text-orange);
+    font-family: Graphik-Semibold;
+    font-size: 3.0rem;
+    font-weight: normal;
+    max-width: 100px;
+    white-space: pre-wrap;
+}
