@@ -1,0 +1,15 @@
+﻿.home-page__main-text1,
+.home-page__main-text2 {
+    color: var(--main-text-orange);
+    font-family: Graphik-Semibold;
+    font-size: 3.0rem;
+    font-weight: normal;
+    max-width: 100px;
+    white-space: pre-wrap;
+}
+.home-page__main-text2 {
+    color: var(--main-text-white);
+    font-size: 1.0rem;
+    max-width: none;
+}
+
