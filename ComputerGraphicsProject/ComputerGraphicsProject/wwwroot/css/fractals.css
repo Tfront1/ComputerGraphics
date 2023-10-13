@@ -10,6 +10,69 @@
     font-family: Graphik-Semibold;
     font-size: 3.0rem;
     font-weight: normal;
-    max-width: 100px;
-    white-space: pre-wrap;
+}
+.fractals-page__cart {
+    width: 230px;
+    height: 212px;
+    overflow: hidden;
+    position: relative;
+    margin: 60px;
+}
+.fractals-page__cart img {
+    width: 230px;
+    height: 212px;
+    display: block;
+}
+.fractals-page__cart-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    text-align: left;
+    color: var(--main-text-white);
+    font-size: 1.7rem;
+    line-height: 1.3;
+}
+.fractals-page__cart-container {
+    justify-content: center;
+    overflow: auto;
+    display: flex;
+    margin-top: 10%;
+}
+@media(max-width: 930px) {
+    .fractals-page__cart {
+        width: 200px;
+        height: 184px;
+    }
+    .fractals-page__cart img {
+        width: 200px;
+        height: 184px;
+    }
+}
+/*@media(max-width: 790px) {
+    .fractals-page__cart {
+        width: 160px;
+        height: 147px;
+    }
+    .fractals-page__cart img {
+        width: 160px;
+        height: 147px;
+    }
+}*/
+@media(max-width: 790px) {
+    .fractals-page__cart-container {
+        flex-direction: column;
+    }
+    .fractals-page__cart {
+        width: 200px;
+        height: 184px;
+        margin: 0px;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+    .fractals-page__cart img {
+        width: 200px;
+        height: 184px;
+    }
 }
