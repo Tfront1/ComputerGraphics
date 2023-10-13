@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\ComputerGraphicsProject.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\css\\fractals.css",
+      "PackagePath": "staticwebassets\\css\\fractals.css"
+    },
+    {
       "Id": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\css\\global.css",
       "PackagePath": "staticwebassets\\css\\global.css"
     },
@@ -35,6 +39,14 @@
     {
       "Id": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\img\\MovingImagesPicture.png",
       "PackagePath": "staticwebassets\\img\\MovingImagesPicture.png"
+    },
+    {
+      "Id": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\img\\NewtonsFractalPicture.png",
+      "PackagePath": "staticwebassets\\img\\NewtonsFractalPicture.png"
+    },
+    {
+      "Id": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\img\\ViceksFractalPicture.png",
+      "PackagePath": "staticwebassets\\img\\ViceksFractalPicture.png"
     },
     {
       "Id": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\js\\site.js",

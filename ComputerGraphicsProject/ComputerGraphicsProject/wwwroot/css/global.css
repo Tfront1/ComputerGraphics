@@ -36,8 +36,7 @@ p {
     font-family: 'Graphik-Semibold';
     src: url('/fonts/Graphik-Semibold.woff') format('woff');
 }
-.container,
-.container__header {
+.container {
     max-width: 100%;
     justify-content: center;
     overflow: auto;
@@ -46,11 +45,17 @@ p {
     padding-left: 10%;
     padding-right: 10%;
 }
-.container__header {
-    padding-top: 3%;
-    justify-content: left;
-    flex-direction: column;
+.bg-photo {
+    z-index: -9;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url('../img/BackgroundPicture.png');
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
 }
-
 
 
