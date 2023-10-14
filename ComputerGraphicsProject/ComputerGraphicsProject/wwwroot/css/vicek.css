@@ -23,8 +23,15 @@
 }
 .vicek-page__form-data__K {
     max-width: 30px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 .vicek-page__form-submit {
+    display: flex;
+    justify-content: center;
+}
+.vicek-page__form-valid {
     display: flex;
     justify-content: center;
 }
