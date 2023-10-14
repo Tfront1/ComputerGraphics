@@ -80,7 +80,7 @@ namespace ComputerGraphicsProject.Controllers
             if (newtonFractalModelCtor.FractalBytesModel.FractalBytes == null || 
                 newtonFractalModelCtor.FractalBytesModel.LastGeneratedFractal == (int)Fractals.Vicsek)
             {
-                newtonFractalModelCtor.FractalBytesModel.FractalBytes = new byte[0];
+                newtonFractalModelCtor.FractalBytesModel.FractalBytes = getWhiteImg();
             }
             return File(newtonFractalModelCtor.FractalBytesModel.FractalBytes, "image/png");
         }
@@ -91,9 +91,22 @@ namespace ComputerGraphicsProject.Controllers
             if (vicsekFractalModelCtor.FractalBytesModel.FractalBytes == null ||
                  vicsekFractalModelCtor.FractalBytesModel.LastGeneratedFractal == (int)Fractals.Newton)
             {
-                vicsekFractalModelCtor.FractalBytesModel.FractalBytes = new byte[0];
+                vicsekFractalModelCtor.FractalBytesModel.FractalBytes = getWhiteImg();
             }
             return File(vicsekFractalModelCtor.FractalBytesModel.FractalBytes, "image/png");
+        }
+
+        [NonAction]
+        public byte[] getWhiteImg() {
+            byte[] whiteImageBytes;
+            using (MemoryStream ms = new MemoryStream())
+            using (Bitmap bmp = new Bitmap(1, 1))
+            {
+                bmp.SetPixel(0, 0, Color.White);
+                bmp.Save(ms, ImageFormat.Png);
+                whiteImageBytes = ms.ToArray();
+            }
+            return whiteImageBytes;
         }
     }
 }

@@ -1,14 +1,20 @@
 ﻿@model ComputerGraphicsProject.Models.VicsekFractalModel;
 
-<img id="fractalImage" src="@Url.Action("GetVicsecFractalImage")" width="500" height="500" />
+<div class="vicek-page__img-container">
+    <img class="vicek-page__img" id="fractalImage" src="@Url.Action("GetVicsecFractalImage")" width="480" height="480" />
+</div>
 <form asp-action="Vicek">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="IterationsCount" class="control-label">Iter</label>
-        <input asp-for="IterationsCount" class="form-control" />
+    <div class="vicek-page__form-data">
+        <label asp-for="IterationsCount" class="control-label">K =&nbsp;</label>
+        <input class="vicek-page__form-data__K" asp-for="IterationsCount"/> 
+    </div>
+    <div class="vicek-page__form-submit">
+        <input class="vicek-page__generate-button" type="submit" value="" />
+    </div>
+    <div class="vicek-page__form-valid">
         <span asp-validation-for="IterationsCount" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <input type="submit" value="Save" class="btn btn-primary" />
-    </div>
+    
 </form>
+<div class="bg-photo"></div>
