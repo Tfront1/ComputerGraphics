@@ -8,6 +8,8 @@
     justify-content: center;
 }
 .fractal-pages__img-container {
+    flex: 1;
+    text-align: center;
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
@@ -16,6 +18,8 @@
 .fractal-pages__img {
     background-color: white;
     border: 2px solid var(--main-text-orange);
+    width: 480px;
+    height: 480px;
 }
 
 .fractal-pages__generate-button {
@@ -46,4 +50,53 @@
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
+}
+
+.fractal-pages__data-text {
+    color: var(--main-text-orange);
+    font-family: Graphik-Semibold;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.fractal-pages__dwnld-buttn-container {
+    flex: 0;
+    position: absolute;
+    right: 10%;
+    top: 10%;
+    background: url('../img/DownloadButtnPic.png') no-repeat;
+    width: 50px;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+    text-indent: -9999px;
+    background-size: cover;
+}
+.fractal-container {
+    display: flex;
+    align-items: center;
+}
+
+@media(max-width: 950px) {
+    .fractal-pages__img {
+        width: 380px;
+        height: 380px;
+    }
+}
+
+@media(max-width: 750px) {
+    .fractal-pages__dwnld-buttn-container {
+        right: 5%;
+    }
+}
+@media(max-width: 550px) {
+    .fractal-pages__img {
+        width: 200px;
+        height: 200px;
+    }
+    .fractal-pages__dwnld-buttn-container {
+        width: 40px;
+        height: 40px;
+        right: 5%;
+    }
 }
