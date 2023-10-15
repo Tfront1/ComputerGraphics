@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\ComputerGraphicsProject.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\css\\fractal-pages.css",
+      "PackagePath": "staticwebassets\\css\\fractal-pages.css"
+    },
+    {
       "Id": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\css\\fractals.css",
       "PackagePath": "staticwebassets\\css\\fractals.css"
     },
@@ -19,10 +23,6 @@
     {
       "Id": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\css\\index.css",
       "PackagePath": "staticwebassets\\css\\index.css"
-    },
-    {
-      "Id": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\css\\vicek.css",
-      "PackagePath": "staticwebassets\\css\\vicek.css"
     },
     {
       "Id": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\favicon.ico",

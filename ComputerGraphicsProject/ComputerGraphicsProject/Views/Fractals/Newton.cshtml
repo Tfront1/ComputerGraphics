@@ -1,20 +1,25 @@
 ﻿@model ComputerGraphicsProject.Models.NewtonFractalModel;
-<img id="fractalImage" src="@Url.Action("GetNewtonFractalImage")" width="480" height="480" />
+
+<div class="fractal-pages__img-container">
+    <img class="fractal-pages__img" id="fractalImage" src="@Url.Action("GetNewtonFractalImage")" width="480" height="480" />
+</div>
+
 <form asp-action="Newton">
     <div asp-validation-summary="All" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="RealC" class="control-label">Real C</label>
-        <input asp-for="RealC" class="form-control" />
+    <div class="fractal-pages__form-data">
+        <label asp-for="RealC" class="control-label">f(z) = z^4 + (</label>
+        <input asp-for="RealC" class="newton-page__form-data__real-img" />
         <span asp-validation-for="RealC" class="text-danger"></span>
+        <label asp-for="RealC" class="control-label">,</label>
+        <input asp-for="ImaginaryC" class="newton-page__form-data__real-img" />
+        <label asp-for="RealC" class="control-label">)</label>   
     </div>
-    <div class="form-group">
-        <label asp-for="ImaginaryC" class="control-label">Imaginary C</label>
-        <input asp-for="ImaginaryC" class="form-control" />
+    <div class="fractal-pages__form-submit">
+        <input class="fractal-pages__generate-button" type="submit" value="" />
+    </div>
+    <div class="fractal-pages__form-valid">
         <span asp-validation-for="ImaginaryC" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <input type="submit" value="Save" class="btn btn-primary" />
-    </div>
 </form>
-<img id="fractalImage" src="" style="display:none;" />
+<div class="bg-photo"></div>
 

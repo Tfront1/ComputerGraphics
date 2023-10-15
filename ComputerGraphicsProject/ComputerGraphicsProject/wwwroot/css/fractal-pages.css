@@ -1,13 +1,24 @@
-﻿.vicek-page__img-container {
+﻿.fractal-pages__form-submit {
+    display: flex;
+    justify-content: center;
+}
+
+.fractal-pages__form-valid {
+    display: flex;
+    justify-content: center;
+}
+.fractal-pages__img-container {
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
 }
-.vicek-page__img {
+
+.fractal-pages__img {
     background-color: white;
     border: 2px solid var(--main-text-orange);
 }
-.vicek-page__generate-button {
+
+.fractal-pages__generate-button {
     background: url('../img/GenerateButtnPicture.png') no-repeat;
     width: 80px;
     height: 40px;
@@ -16,22 +27,23 @@
     text-indent: -9999px;
     background-size: cover;
 }
-.vicek-page__form-data {
+
+.fractal-pages__form-data {
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
 }
+
 .vicek-page__form-data__K {
     max-width: 30px;
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
 }
-.vicek-page__form-submit {
-    display: flex;
-    justify-content: center;
-}
-.vicek-page__form-valid {
-    display: flex;
-    justify-content: center;
+
+.newton-page__form-data__real-img {
+    max-width: 30px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
