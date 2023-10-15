@@ -37,6 +37,10 @@
       "PackagePath": "staticwebassets\\img\\ColorShemesPicture.png"
     },
     {
+      "Id": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\img\\DownloadButtnPic.png",
+      "PackagePath": "staticwebassets\\img\\DownloadButtnPic.png"
+    },
+    {
       "Id": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\img\\FractalsPicture.png",
       "PackagePath": "staticwebassets\\img\\FractalsPicture.png"
     },

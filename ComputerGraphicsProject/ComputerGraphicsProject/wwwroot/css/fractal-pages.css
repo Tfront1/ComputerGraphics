@@ -8,6 +8,8 @@
     justify-content: center;
 }
 .fractal-pages__img-container {
+    flex: 1;
+    text-align: center;
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
@@ -53,4 +55,22 @@
     font-family: Graphik-Semibold;
     font-size: 1.5rem;
     font-weight: bold;
+}
+
+.fractal-pages__dwnld-buttn-container {
+    flex: 0;
+    position: absolute;
+    right: 10%;
+    top: 10%;
+    background: url('../img/DownloadButtnPic.png') no-repeat;
+    width: 50px;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+    text-indent: -9999px;
+    background-size: cover;
+}
+.fractal-container {
+    display: flex;
+    align-items: center;
 }

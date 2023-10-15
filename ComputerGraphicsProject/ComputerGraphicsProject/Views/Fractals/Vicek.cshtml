@@ -1,8 +1,14 @@
 ﻿@model ComputerGraphicsProject.Models.VicsekFractalModel;
 
-<div class="fractal-pages__img-container">
-    <img class="fractal-pages__img" id="fractalImage" src="@Url.Action("GetVicsecFractalImage")" width="480" height="480" />
+<div class="fractal-container">
+    <div class="fractal-pages__img-container">
+        <img class="fractal-pages__img" id="fractalImage" src="@Url.Action("GetVicsecFractalImage")" width="480" height="480" />
+    </div>
+    <div class="fractal-pages__dwnld-buttn-container">
+        <a asp-action="" asp-controller=""></a>
+    </div>
 </div>
+
 <form asp-action="Vicek">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="fractal-pages__form-data">
