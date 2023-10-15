@@ -4,9 +4,7 @@
     <div class="fractal-pages__img-container">
         <img class="fractal-pages__img" id="fractalImage" src="@Url.Action("GetNewtonFractalImage")" width="480" height="480" />
     </div>
-    <div class="fractal-pages__dwnld-buttn-container">
-        <a asp-action="" asp-controller=""></a>
-    </div>
+    <a class="fractal-pages__dwnld-buttn-container fractal-pages__dwnld-buttn" href="@Url.Action("GetNewtonFractalImage", "Fractals")" download="newton.png"></a>
 </div>
 
 
