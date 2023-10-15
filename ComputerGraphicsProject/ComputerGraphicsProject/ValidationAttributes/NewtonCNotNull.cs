@@ -5,9 +5,9 @@ namespace ComputerGraphicsProject.ValidationAttributes
 {
     public class NewtonCNotNull : ValidationAttribute
     {
-        public NewtonCNotNull()
+        public NewtonCNotNull(string massage)
         {
-            ErrorMessage = "Real c and imaginary c cant both be 0";
+            ErrorMessage = massage;
         }
         public override bool IsValid(object? value)
         {

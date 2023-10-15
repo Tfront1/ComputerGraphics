@@ -3,7 +3,7 @@ using ComputerGraphicsProject.Controllers;
 using ComputerGraphicsProject.ValidationAttributes;
 namespace ComputerGraphicsProject.Models
 {
-    [NewtonCNotNull]
+    [NewtonCNotNull("Real c and imaginary c cant both be 0")]
     public class NewtonFractalModel
     {
         public FractalBitmapModel FractalBitmapModel { get; set; }

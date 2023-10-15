@@ -47,3 +47,10 @@
     -webkit-appearance: none;
     -moz-appearance: none;
 }
+
+.fractal-pages__data-text {
+    color: var(--main-text-orange);
+    font-family: Graphik-Semibold;
+    font-size: 1.5rem;
+    font-weight: bold;
+}

@@ -5,19 +5,19 @@
 </div>
 
 <form asp-action="Newton">
-    <div asp-validation-summary="All" class="text-danger"></div>
     <div class="fractal-pages__form-data">
-        <label asp-for="RealC" class="control-label">f(z) = z^4 + (</label>
+        <label asp-for="RealC" class="fractal-pages__data-text">f(z) = z^4 + (</label>
         <input asp-for="RealC" class="newton-page__form-data__real-img" />
-        <span asp-validation-for="RealC" class="text-danger"></span>
-        <label asp-for="RealC" class="control-label">,</label>
+        <label asp-for="RealC" class="fractal-pages__data-text">,</label>
         <input asp-for="ImaginaryC" class="newton-page__form-data__real-img" />
-        <label asp-for="RealC" class="control-label">)</label>   
+        <label asp-for="RealC" class="fractal-pages__data-text">)</label>
     </div>
     <div class="fractal-pages__form-submit">
         <input class="fractal-pages__generate-button" type="submit" value="" />
     </div>
     <div class="fractal-pages__form-valid">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <span asp-validation-for="RealC" class="text-danger"></span>
         <span asp-validation-for="ImaginaryC" class="text-danger"></span>
     </div>
 </form>
