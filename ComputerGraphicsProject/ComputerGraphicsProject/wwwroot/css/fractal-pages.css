@@ -40,3 +40,10 @@
     -webkit-appearance: none;
     -moz-appearance: none;
 }
+
+.newton-page__form-data__real-img {
+    max-width: 30px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
