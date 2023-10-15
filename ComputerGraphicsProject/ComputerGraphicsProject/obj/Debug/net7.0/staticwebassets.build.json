@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "uwSjYdLMdqJ9DpMz7j/JBaiIyEKhGdO/8C/DBauTgTI=",
+  "Hash": "ncrloj5PQ6jbfBgatN4L9jZozH3BxHRq4KgnApSfNYE=",
   "Source": "ComputerGraphicsProject",
   "BasePath": "_content/ComputerGraphicsProject",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\ComputerGraphicsProject.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\css\\fractal-pages.css",
+      "SourceId": "ComputerGraphicsProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\",
+      "BasePath": "_content/ComputerGraphicsProject",
+      "RelativePath": "css/fractal-pages.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\fractal-pages.css"
     },
     {
       "Identity": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\css\\fractals.css",
