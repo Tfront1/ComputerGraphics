@@ -1,75 +1,121 @@
 ﻿using ComputerGraphicsProject.Interfaces;
 using ComputerGraphicsProject.Models;
-using System.Drawing.Imaging;
 using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace ComputerGraphicsProject.Services
 {
     public class CmykService : ICmykService
     {
+        public Bitmap ConvertToBitmap(CmykModel model)
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                // Копіювання потоку в пам'ять
+                model.File.CopyTo(memoryStream);
+
+                // Створення Bitmap з пам'яті
+                var bitmap = new Bitmap(memoryStream);
+                return bitmap;
+            }
+        }
+
         public byte[] GenerateCmyk(CmykModel model)
         {
-            var file = model.File;
-            byte[] fileBytes = new byte[] { };
-            if (file != null && file.Length != 0)
-            {
-                using (MemoryStream memoryStream = new MemoryStream())
-                {
-                    file.CopyTo(memoryStream);
-                    fileBytes = memoryStream.ToArray();
-                }
-            }
-            return ConvertRgbToCmyk(fileBytes, model.C, model.M, model.Y);
+            Bitmap bitmap = ConvertToBitmap(model);
+
+            int width = bitmap.Width;
+            int height = bitmap.Height;
+
+            byte[] pixelBytes = GetPixelBytes(bitmap, width, height);
+
+            return ConvertRgbToCmyk(pixelBytes, width, height, model.C, model.M, model.Y, bitmap);
         }
 
-        private byte[] ConvertRgbToCmyk(byte[] rgbBytes,int C,int M,int Y)
+        private byte[] GetPixelBytes(Bitmap bitmap, int width, int height)
         {
-            int pixelCount = rgbBytes.Length / 3;
-            double[] resBytes = new double[rgbBytes.Length];
+            Rectangle rect = new Rectangle(0, 0, width, height);
+            BitmapData bmpData = bitmap.LockBits(rect, ImageLockMode.ReadOnly, bitmap.PixelFormat);
+
+            int bytesPerPixel = Image.GetPixelFormatSize(bitmap.PixelFormat) / 8;
+            int stride = ((width * bytesPerPixel + 3) / 4) * 4;  // Забезпечити вирівнювання до кратного 4
+            int pixelArraySize = stride * height;
+
+            byte[] rgbValues = new byte[pixelArraySize];
+            System.Runtime.InteropServices.Marshal.Copy(bmpData.Scan0, rgbValues, 0, pixelArraySize);
+
+            bitmap.UnlockBits(bmpData);
+
+            return rgbValues;
+        }
+
+        private byte[] ConvertRgbToCmyk(byte[] rgbBytes, int width, int height, int C, int M, int Y, Bitmap bitmap)
+        {
             byte[] result = new byte[rgbBytes.Length];
-            for (int i = 0; i < pixelCount; i++)
+
+            int h = 0;
+
+            int bytesPerPixel = Image.GetPixelFormatSize(bitmap.PixelFormat) / 8;
+            int stride = ((width * bytesPerPixel + 3) / 4) * 4;
+
+            int skipBytes = stride - width * bytesPerPixel; // Кількість байтів, які потрібно пропустити на кожному рядку
+
+
+            using (MemoryStream ms = new MemoryStream())
             {
-                int startIndex = i * 3;
-                byte red = (byte)(rgbBytes[startIndex] - C);
-                byte green = (byte)(rgbBytes[startIndex + 1] - M);
-                byte blue = (byte)(rgbBytes[startIndex + 2] - Y);
+                using (Bitmap bmp = new Bitmap(width, height))
+                {
+                    for (int y = 0; y < height; y++)
+                    {
+                        for (int x = 0; x < width; x++)
+                        {
+                            byte red = (byte)(rgbBytes[h] - C);
+                            byte green = (byte)(rgbBytes[h + 1] - M);
+                            byte blue = (byte)(rgbBytes[h + 2] - Y);
 
-                double black = Math.Min(1.0 - red / 255.0, Math.Min(1.0 - green / 255.0, 1.0 - blue / 255.0));
-                double cyan = (1.0 - (red / 255.0) - black) / (1.0 - black);
-                double magenta = (1.0 - (green / 255.0) - black) / (1.0 - black);
-                double yellow = (1.0 - (blue / 255.0) - black) / (1.0 - black);
-                if (black == 1) {
-                    cyan = 0.0;
-                    magenta = 0.0;
-                    yellow = 0.0;
+                            double black = Math.Min(1.0 - red / 255.0, Math.Min(1.0 - green / 255.0, 1.0 - blue / 255.0));
+
+                            double cyan, magenta, yellow;
+
+                            if (black == 1)
+                            {
+                                cyan = 0.0;
+                                magenta = 0.0;
+                                yellow = 0.0;
+                            }
+                            else
+                            {
+                                cyan = (1.0 - (red / 255.0) - black) / (1.0 - black);
+                                magenta = (1.0 - (green / 255.0) - black) / (1.0 - black);
+                                yellow = (1.0 - (blue / 255.0) - black) / (1.0 - black);
+                            }
+
+                            var resultTemp = CmykToRgb(cyan, magenta, yellow, black);
+
+                            result[h] = resultTemp[0];
+                            result[h + 1] = resultTemp[1];
+                            result[h + 2] = resultTemp[2];
+
+                            // Зберегти отриманий бітмап в MemoryStream
+                            bmp.SetPixel(x, y, Color.FromArgb(result[h], result[h + 1], result[h + 2]));
+                            h += 3;
+                        }
+                        h += skipBytes; // Пропустити невикористані байти на кожному рядку
+                    }
+
+                    bool fl = false;
+
+                    if(rgbBytes.Equals(result))
+                    {
+                        fl = true;
+                    }
+
+                    bmp.Save(ms, ImageFormat.Jpeg);
                 }
-                //if (C != 0) {
-                //    cyan = C / 255.0;
-                //}
-                //if (M != 0) {
-                //    magenta= M / 255.0;
-                //}
-                //if (Y != 0) {
-                //    yellow= Y / 255.0;
-                //}
 
-                resBytes[startIndex] = cyan;
-                resBytes[startIndex + 1] = magenta;
-                resBytes[startIndex + 2] = yellow;
-
-                var resultTemp = CmykToRgb(cyan, magenta, yellow, black);
-
-                result[startIndex] = resultTemp[0];
-                result[startIndex+1] = resultTemp[1];
-                result[startIndex+2] = resultTemp[2];
-                
+                // Повернути масив байтів з MemoryStream
+                return ms.ToArray();
             }
-            
-            return result;
-        }
-        private byte NormalizeColor(double color)
-        {
-            return (byte)(color * 255);
         }
 
         static byte[] CmykToRgb(double cyan, double magenta, double yellow, double black)
@@ -80,32 +126,5 @@ namespace ComputerGraphicsProject.Services
 
             return new[] { red, green, blue };
         }
-        //private byte[] CmykToRgb(double[] bytes) {
-
-        //    int width = 100;
-        //    int height = 100;
-        //    Bitmap bmp = new Bitmap(width, height, PixelFormat.Format32bppArgb);
-
-        //    for (int y = 0; y < height; y++)
-        //    {
-        //        for (int x = 0; x < width; x++)
-        //        {
-        //            int index = (y * width + x) * 4;
-
-        //            int red = (int)((1 - Math.Min(1, bytes[index] * (1 - bytes[index + 3]) + bytes[index + 3])) * 255);
-        //            int green = (int)((1 - Math.Min(1, bytes[index + 1] * (1 - bytes[index + 3]) + bytes[index + 3])) * 255);
-        //            int blue = (int)((1 - Math.Min(1, bytes[index + 2] * (1 - bytes[index + 3]) + bytes[index + 3])) * 255);
-
-        //            bmp.SetPixel(x, y, Color.FromArgb(red, green, blue));
-        //        }
-        //    }
-        //    byte[] result = new byte[] { };
-        //    using (MemoryStream stream = new MemoryStream())
-        //    {
-        //        bmp.Save(stream, ImageFormat.Jpeg);
-        //        result = stream.ToArray();
-        //    }
-        //    return result;
-        //}
     }
 }

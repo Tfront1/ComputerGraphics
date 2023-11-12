@@ -102,7 +102,7 @@ namespace ComputerGraphicsProject.Controllers
             using (MemoryStream ms = new MemoryStream())
             using (Bitmap bmp = new Bitmap(1, 1))
             {
-                bmp.SetPixel(0, 0, Color.White);
+                bmp.SetPixel(0, 0, System.Drawing.Color.White);
                 bmp.Save(ms, ImageFormat.Png);
                 whiteImageBytes = ms.ToArray();
             }
