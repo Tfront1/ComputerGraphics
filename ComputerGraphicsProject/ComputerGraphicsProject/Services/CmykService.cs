@@ -24,31 +24,42 @@ namespace ComputerGraphicsProject.Services
         {
             Bitmap bitmap = ConvertToBitmap(model);
 
-            var file = model.File;
-            byte[] fileBytes = new byte[] { };
-
             int width = bitmap.Width;
             int height = bitmap.Height;
 
-            if (file != null && file.Length != 0)
-            {
-                using (MemoryStream memoryStream = new MemoryStream())
-                {
-                    // Збереження зображення в потік пам'яті
-                    bitmap.Save(memoryStream, ImageFormat.Bmp);
+            byte[] pixelBytes = GetPixelBytes(bitmap, width, height);
 
-                    // Отримання масиву байтів
-                    fileBytes = memoryStream.ToArray();
-                }
-            }
-
-            return ConvertRgbToCmyk(fileBytes, width, height, model.C, model.M, model.Y);
+            return ConvertRgbToCmyk(pixelBytes, width, height, model.C, model.M, model.Y, bitmap);
         }
 
-        private byte[] ConvertRgbToCmyk(byte[] rgbBytes, int width, int height, int C, int M, int Y)
+        private byte[] GetPixelBytes(Bitmap bitmap, int width, int height)
+        {
+            Rectangle rect = new Rectangle(0, 0, width, height);
+            BitmapData bmpData = bitmap.LockBits(rect, ImageLockMode.ReadOnly, bitmap.PixelFormat);
+
+            int bytesPerPixel = Image.GetPixelFormatSize(bitmap.PixelFormat) / 8;
+            int stride = ((width * bytesPerPixel + 3) / 4) * 4;  // Забезпечити вирівнювання до кратного 4
+            int pixelArraySize = stride * height;
+
+            byte[] rgbValues = new byte[pixelArraySize];
+            System.Runtime.InteropServices.Marshal.Copy(bmpData.Scan0, rgbValues, 0, pixelArraySize);
+
+            bitmap.UnlockBits(bmpData);
+
+            return rgbValues;
+        }
+
+        private byte[] ConvertRgbToCmyk(byte[] rgbBytes, int width, int height, int C, int M, int Y, Bitmap bitmap)
         {
             byte[] result = new byte[rgbBytes.Length];
+
             int h = 0;
+
+            int bytesPerPixel = Image.GetPixelFormatSize(bitmap.PixelFormat) / 8;
+            int stride = ((width * bytesPerPixel + 3) / 4) * 4;
+
+            int skipBytes = stride - width * bytesPerPixel; // Кількість байтів, які потрібно пропустити на кожному рядку
+
 
             using (MemoryStream ms = new MemoryStream())
             {
@@ -86,12 +97,20 @@ namespace ComputerGraphicsProject.Services
                             result[h + 2] = resultTemp[2];
 
                             // Зберегти отриманий бітмап в MemoryStream
-                            bmp.SetPixel(width - x - 1, height - y - 1, Color.FromArgb(result[h], result[h + 1], result[h + 2]));
+                            bmp.SetPixel(x, y, Color.FromArgb(result[h], result[h + 1], result[h + 2]));
                             h += 3;
                         }
+                        h += skipBytes; // Пропустити невикористані байти на кожному рядку
                     }
 
-                    bmp.Save(ms, ImageFormat.Bmp);
+                    bool fl = false;
+
+                    if(rgbBytes.Equals(result))
+                    {
+                        fl = true;
+                    }
+
+                    bmp.Save(ms, ImageFormat.Jpeg);
                 }
 
                 // Повернути масив байтів з MemoryStream
