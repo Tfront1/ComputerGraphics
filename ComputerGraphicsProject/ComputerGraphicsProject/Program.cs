@@ -13,6 +13,7 @@ namespace ComputerGraphicsProject
             builder.Services.AddTransient<INewtonFractalService, NewtonFractalService>();
             builder.Services.AddTransient<IVicsecFractalService, VicsecFractalService>();
             builder.Services.AddTransient<ICmykService, CmykService>();
+            builder.Services.AddTransient<IHslService, HslService>();
             builder.Services.AddControllersWithViews();
             
 

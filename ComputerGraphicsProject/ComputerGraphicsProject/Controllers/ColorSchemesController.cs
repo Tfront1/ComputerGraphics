@@ -10,10 +10,13 @@ namespace ComputerGraphicsProject.Controllers
     public class ColorSchemesController : Controller
     {
         private readonly ICmykService cmykService;
+        private readonly IHslService hslService;
         private CmykModel cmykModel = new CmykModel();
-        public ColorSchemesController(ICmykService cmykService)
+        private HslModel hslModel = new HslModel();
+        public ColorSchemesController(ICmykService cmykService, IHslService hslService)
         {
             this.cmykService = cmykService;
+            this.hslService = hslService;
         }
         public IActionResult Index()
         {
@@ -33,20 +36,50 @@ namespace ComputerGraphicsProject.Controllers
         [HttpPost]
         public IActionResult Cmyk(CmykModel cmykModel)
         {
-            cmykModel.CmykBytesModel = CmykBytesModel.GetInstance();
-            cmykModel.CmykBytesModel.Bytes = cmykService.GenerateCmyk(cmykModel);
+            TryValidateModel(cmykModel);
+            if (!ModelState.IsValid)
+            {
+
+                return View();
+            }
+            cmykModel.colorBytesModel = ColorBytesModel.GetInstance();
+            cmykModel.colorBytesModel.Bytes = cmykService.GenerateCmyk(cmykModel);
             return View(cmykModel);
         }
 
         [HttpGet]
         public IActionResult GetCmykImage()
         {
-            cmykModel.CmykBytesModel = CmykBytesModel.GetInstance();
-            if (cmykModel.CmykBytesModel.Bytes == null)
+            cmykModel.colorBytesModel = ColorBytesModel.GetInstance();
+            if (cmykModel.colorBytesModel.Bytes == null)
             {
-                cmykModel.CmykBytesModel.Bytes = getWhiteImg();
+                cmykModel.colorBytesModel.Bytes = getWhiteImg();
             }
-            return File(cmykModel.CmykBytesModel.Bytes, "image/jpeg");
+            return File(cmykModel.colorBytesModel.Bytes, "image/jpeg");
+        }
+
+        [HttpPost]
+        public IActionResult hSL(HslModel hslModel)
+        {
+            TryValidateModel(hslModel);
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            hslModel.colorBytesModel = ColorBytesModel.GetInstance();
+            hslModel.colorBytesModel.Bytes = hslService.GenerateHsl(hslModel);
+            return View(hslModel);
+        }
+
+        [HttpGet]
+        public IActionResult GetHslImage()
+        {
+            hslModel.colorBytesModel = ColorBytesModel.GetInstance();
+            if (hslModel.colorBytesModel.Bytes == null)
+            {
+                hslModel.colorBytesModel.Bytes = getWhiteImg();
+            }
+            return File(hslModel.colorBytesModel.Bytes, "image/jpeg");
         }
 
         [NonAction]

@@ -7,7 +7,7 @@ namespace ComputerGraphicsProject.Services
 {
     public class CmykService : ICmykService
     {
-        public Bitmap ConvertToBitmap(CmykModel model)
+        private Bitmap ConvertToBitmap(CmykModel model)
         {
             using (MemoryStream memoryStream = new MemoryStream())
             {
@@ -118,7 +118,7 @@ namespace ComputerGraphicsProject.Services
             }
         }
 
-        static byte[] CmykToRgb(double cyan, double magenta, double yellow, double black)
+        private byte[] CmykToRgb(double cyan, double magenta, double yellow, double black)
         {
             byte red = Convert.ToByte((1 - Math.Min(1, cyan * (1 - black) + black)) * 255);
             byte green = Convert.ToByte((1 - Math.Min(1, magenta * (1 - black) + black)) * 255);
