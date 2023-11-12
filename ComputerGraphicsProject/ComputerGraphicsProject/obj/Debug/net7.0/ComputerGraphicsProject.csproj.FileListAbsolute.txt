@@ -34,3 +34,5 @@ C:\Users\1\Desktop\5sem\CG\Proj\ComputerGraphics\ComputerGraphicsProject\Compute
 C:\Users\1\Desktop\5sem\CG\Proj\ComputerGraphics\ComputerGraphicsProject\ComputerGraphicsProject\obj\Debug\net7.0\ComputerGraphicsProject.pdb
 C:\Users\1\Desktop\5sem\CG\Proj\ComputerGraphics\ComputerGraphicsProject\ComputerGraphicsProject\obj\Debug\net7.0\ComputerGraphicsProject.genruntimeconfig.cache
 C:\Users\1\Desktop\5sem\CG\Proj\ComputerGraphics\ComputerGraphicsProject\ComputerGraphicsProject\obj\Debug\net7.0\ref\ComputerGraphicsProject.dll
+C:\Users\1\Desktop\5sem\CG\Proj\ComputerGraphics\ComputerGraphicsProject\ComputerGraphicsProject\bin\Debug\net7.0\Aspose.SVG.dll
+C:\Users\1\Desktop\5sem\CG\Proj\ComputerGraphics\ComputerGraphicsProject\ComputerGraphicsProject\bin\Debug\net7.0\System.Security.Permissions.dll

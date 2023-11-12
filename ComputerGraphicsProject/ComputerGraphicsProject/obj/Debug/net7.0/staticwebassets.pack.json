@@ -33,6 +33,10 @@
       "PackagePath": "staticwebassets\\img\\BackgroundPicture.png"
     },
     {
+      "Id": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\img\\CMYKPicture.png",
+      "PackagePath": "staticwebassets\\img\\CMYKPicture.png"
+    },
+    {
       "Id": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\img\\ColorShemesPicture.png",
       "PackagePath": "staticwebassets\\img\\ColorShemesPicture.png"
     },
@@ -47,6 +51,10 @@
     {
       "Id": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\img\\GenerateButtnPicture.png",
       "PackagePath": "staticwebassets\\img\\GenerateButtnPicture.png"
+    },
+    {
+      "Id": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\img\\HSLPicture.png",
+      "PackagePath": "staticwebassets\\img\\HSLPicture.png"
     },
     {
       "Id": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\img\\MovingImagesPicture.png",

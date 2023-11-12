@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Mm7U/eMivGuddArZxZb4cPUibae4RThHMezhOWf/MpU=",
+  "Hash": "QLy7Mh4jhQl6t9NMZUmkPprj8dYcZUKxFkZimPKiN+w=",
   "Source": "ComputerGraphicsProject",
   "BasePath": "_content/ComputerGraphicsProject",
   "Mode": "Default",
@@ -170,6 +170,23 @@
       "OriginalItemSpec": "wwwroot\\img\\BackgroundPicture.png"
     },
     {
+      "Identity": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\img\\CMYKPicture.png",
+      "SourceId": "ComputerGraphicsProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\",
+      "BasePath": "_content/ComputerGraphicsProject",
+      "RelativePath": "img/CMYKPicture.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\CMYKPicture.png"
+    },
+    {
       "Identity": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\img\\ColorShemesPicture.png",
       "SourceId": "ComputerGraphicsProject",
       "SourceType": "Discovered",
@@ -236,6 +253,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\GenerateButtnPicture.png"
+    },
+    {
+      "Identity": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\img\\HSLPicture.png",
+      "SourceId": "ComputerGraphicsProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\",
+      "BasePath": "_content/ComputerGraphicsProject",
+      "RelativePath": "img/HSLPicture.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\HSLPicture.png"
     },
     {
       "Identity": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\wwwroot\\img\\MovingImagesPicture.png",
