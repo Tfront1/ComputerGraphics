@@ -30,7 +30,7 @@ namespace ComputerGraphicsProject.Services
 
                             Complex z = new Complex(a, b);
 
-                            Color pixelColor = GetColorForPixel(z, c, maxIterations, threshold, exponent);
+                            System.Drawing.Color pixelColor = GetColorForPixel(z, c, maxIterations, threshold, exponent);
 
                             lock (bitmap)
                             {
@@ -50,7 +50,7 @@ namespace ComputerGraphicsProject.Services
             }
         }
 
-        private Color GetColorForPixel(Complex pixel, Complex c, int maxIterations, double threshold, int exponent)
+        private System.Drawing.Color GetColorForPixel(Complex pixel, Complex c, int maxIterations, double threshold, int exponent)
         {
             //c = Complex.Pow(pixel, exponent) - 1;
 
@@ -67,18 +67,18 @@ namespace ComputerGraphicsProject.Services
                 iterations++;
             }
 
-            Color color = new Color();
+            System.Drawing.Color color = new System.Drawing.Color();
             if (root == 1)
             {
-                color = Color.Red;
+                color = System.Drawing. Color.Red;
             }
             else if (root == Complex.FromPolarCoordinates(1, 2 * Math.PI / 3))
             {
-                color = Color.Green;
+                color = System.Drawing.Color.Green;
             }
             else
             {
-                color = Color.Blue;
+                color = System.Drawing.Color.Blue;
             }
 
             return color;

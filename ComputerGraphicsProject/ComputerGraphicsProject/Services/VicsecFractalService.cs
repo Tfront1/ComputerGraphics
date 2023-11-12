@@ -10,7 +10,7 @@ namespace ComputerGraphicsProject.Services
         public byte[] GenerateFractal(int width, int height, int length, int iterationCount) {
             Bitmap bitmap = new Bitmap(width, height);
             Graphics graphics = Graphics.FromImage(bitmap);
-            Pen pen = new Pen(Color.Blue);
+            Pen pen = new Pen(System.Drawing.Color.Blue);
 
             Vicsek(bitmap, graphics, pen, width / 2, height / 2, length, iterationCount);
             byte[] result;
