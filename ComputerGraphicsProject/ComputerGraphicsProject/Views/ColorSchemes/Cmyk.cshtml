@@ -11,11 +11,11 @@
 <form asp-action="Cmyk" enctype="multipart/form-data">
     <div class="fractal-pages__form-data">
         <label asp-for="C" class="fractal-pages__data-text">C = </label>
-        <input asp-for="C" class="newton-page__form-data__real-img" style="max-width: 70px; margin-left: 5px;  margin-right: 10px;" />
+        <input asp-for="C" class="newton-page__form-data__real-img" style="max-width: 70px; margin-left: 5px;  margin-right: 10px;" id="C" />
         <label asp-for="M" class="fractal-pages__data-text">M = </label>
-        <input asp-for="M" class="newton-page__form-data__real-img" style="max-width: 70px; margin-left: 5px;  margin-right: 10px;" />
+        <input asp-for="M" class="newton-page__form-data__real-img" style="max-width: 70px; margin-left: 5px;  margin-right: 10px;" id="M" />
         <label asp-for="Y" class="fractal-pages__data-text">Y = </label>
-        <input asp-for="Y" class="newton-page__form-data__real-img" style="max-width: 70px; margin-left: 5px;  margin-right: 10px;" />
+        <input asp-for="Y" class="newton-page__form-data__real-img" style="max-width: 70px; margin-left: 5px;  margin-right: 10px;" id="Y" />
         <input asp-for="File" type="file" class="form-control" style="width: 128px; margin-left: 20px;" />
     </div>
     <div class="fractal-pages__form-submit">
@@ -27,3 +27,64 @@
     </div>
 </form>
 <div class="bg-photo"></div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var image = document.getElementById("fractalImage");
+
+        image.addEventListener("click", function (event) {
+            var x = event.clientX - image.getBoundingClientRect().left;
+            var y = event.clientY - image.getBoundingClientRect().top;
+
+            // Створення canvas для малювання зображення
+            var canvas = document.createElement("canvas");
+            canvas.width = image.width;
+            canvas.height = image.height;
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(image, 0, 0, image.width, image.height);
+
+            // Отримання даних пікселів на вказаних координатах
+            var pixelData = ctx.getImageData(x, y, 1, 1).data;
+
+            // pixelData містить дані пікселя у вигляді масиву [R, G, B, A]
+            var red = pixelData[0];
+            var green = pixelData[1];
+            var blue = pixelData[2];
+
+            // Створення об'єкта FormData для відправки координат і зображення на сервер
+            var formData = new FormData();
+            formData.append("red", red);
+            formData.append("green", green);
+            formData.append("blue", blue);
+
+
+
+            // Відправка координат і зображення на сервер за допомогою AJAX-запиту
+            $.ajax({
+                url: "/ColorSchemes/GetMouseCoordinates",
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function (response) {
+                    // Оновлення параметрів на сторінці
+                    var c = response.c;
+                    var m = response.m;
+                    var y = response.y;
+                    var k = response.k;
+
+                    // Припустимо, що ці параметри мають свої відповідні ідентифікатори
+                    // Змініть їх на відповідні ідентифікатори у вашому HTML
+                    document.getElementById("C").value = c;
+                    document.getElementById("M").value = m;
+                    document.getElementById("Y").value = y;
+                    //Тут короче допишеш шоб ще міняло значення в k полі
+                },
+                error: function (error) {
+                    console.error("Error sending coordinates to the server:", error);
+                }
+            });
+        });
+    });
+</script>

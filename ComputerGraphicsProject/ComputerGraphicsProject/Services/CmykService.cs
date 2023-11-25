@@ -24,12 +24,21 @@ namespace ComputerGraphicsProject.Services
         {
             Bitmap bitmap = ConvertToBitmap(model);
 
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bitmap.Save(ms, ImageFormat.Jpeg);
+
+                return ms.ToArray();
+            }
+            /*
             int width = bitmap.Width;
             int height = bitmap.Height;
 
             byte[] pixelBytes = GetPixelBytes(bitmap, width, height);
 
-            return ConvertRgbToCmyk(pixelBytes, width, height, model.C, model.M, model.Y, bitmap);
+            return pixelBytes;
+            */
+            //return ConvertRgbToCmyk(pixelBytes, width, height, model.C, model.M, model.Y, bitmap);
         }
 
         private byte[] GetPixelBytes(Bitmap bitmap, int width, int height)
@@ -125,6 +134,50 @@ namespace ComputerGraphicsProject.Services
             byte blue = Convert.ToByte((1 - Math.Min(1, yellow * (1 - black) + black)) * 255);
 
             return new[] { red, green, blue };
+        }
+        
+        public byte[] GetPixelFromBitmapFromRgbToCmyk(CmykModel model, int x,  int y) 
+        {
+            Bitmap bitmap = ConvertToBitmap(model);
+
+            Color pixelColor = bitmap.GetPixel(x, y);
+
+            byte[] cmykBytes = RgbToCmykBytes(pixelColor.R, pixelColor.G, pixelColor.B);
+
+            return cmykBytes;
+        }
+
+        public static byte[] RgbToCmykBytes(int red, int green, int blue)
+        {
+            // Нормалізація значень RGB до діапазону [0, 1]
+            double r = red / 255.0;
+            double g = green / 255.0;
+            double b = blue / 255.0;
+
+            // Обчислення значень CMY
+            double c = 1.0 - r;
+            double m = 1.0 - g;
+            double y = 1.0 - b;
+
+            // Визначення значення K (чорнила)
+            double k = Math.Min(c, Math.Min(m, y));
+
+            // Обчислення значень CMYK
+            double cyan = (c - k) / (1.0 - k);
+            double magenta = (m - k) / (1.0 - k);
+            double yellow = (y - k) / (1.0 - k);
+            double black = k;
+
+            // Масштабування значень CMYK до діапазону [0, 255] і перетворення їх в байти
+            byte[] cmykBytes = new byte[]
+            {
+            (byte)(cyan * 255),
+            (byte)(magenta * 255),
+            (byte)(yellow * 255),
+            (byte)(black * 255)
+            };
+
+            return cmykBytes;
         }
     }
 }

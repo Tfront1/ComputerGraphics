@@ -39,7 +39,6 @@ namespace ComputerGraphicsProject.Controllers
             TryValidateModel(cmykModel);
             if (!ModelState.IsValid)
             {
-
                 return View();
             }
             cmykModel.colorBytesModel = ColorBytesModel.GetInstance();
@@ -94,6 +93,34 @@ namespace ComputerGraphicsProject.Controllers
                 whiteImageBytes = ms.ToArray();
             }
             return whiteImageBytes;
+        }
+
+
+        [HttpPost]
+        [Produces("application/json")]
+        public IActionResult GetMouseCoordinates(int red, int green, int blue)
+        {
+            byte[] cmykBytes = CmykService.RgbToCmykBytes(red, green, blue);
+
+            string c = cmykBytes[0].ToString();
+            string m = cmykBytes[1].ToString();
+            string yy = cmykBytes[2].ToString();
+            string k = cmykBytes[3].ToString();
+
+            // Створення об'єкту JSON для відправки на клієнт
+            var jsonResponse = new { C = c, M = m, Y = yy , K = k};
+            return new JsonResult(jsonResponse);
+        }
+
+
+        [HttpPost]
+        [Produces("application/json")]
+        public IActionResult GetImageData(byte[] fullImageData, int startX, int startY, int endX, int endY, int height, int width)
+        {
+
+            byte[] bytes = HslService.RemakeSelectedAreaByHsl(new ImageDataModelHsl(fullImageData, startX, startY, endX, endY, height, width), 0, 0, 0);
+
+            return Ok();
         }
     }
 }
