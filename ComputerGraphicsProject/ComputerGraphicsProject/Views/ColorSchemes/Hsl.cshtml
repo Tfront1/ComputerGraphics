@@ -4,7 +4,7 @@
     <div class="fractal-pages__img-container">
         <img class="fractal-pages__img" id="fractalImage" src="@Url.Action("GetHslImage")" />
     </div>
-    <a class="fractal-pages__dwnld-buttn-container" href="@Url.Action("GetHslImage", "ColorSchemes")" download="hsl.jpeg"></a>
+    <a class="fractal-pages__dwnld-buttn-container" id="downloadLink" download="hsl.jpeg"></a>
 </div>
 
 
@@ -138,8 +138,15 @@
         var canvas = document.createElement("canvas");
         var ctx = canvas.getContext("2d");
 
-        var selectedCanvas;
+        var hInput = document.getElementById("H");
+        var sInput = document.getElementById("S");
+        var lInput = document.getElementById("L");
 
+        var downloadLink = document.getElementById("downloadLink");
+
+        var selectedCanvas;
+        var flag = false;
+        
         var selection = {
             isSelecting: false,
             startX: 0,
@@ -148,7 +155,80 @@
             endY: 0
         };
 
-        image.addEventListener("mousedown", function (event) {
+        downloadLink.addEventListener("click", function () {
+            // Створюємо canvas та отримуємо його контекст
+            var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
+
+            // Задаємо розміри canvas такі ж, як у зображення
+            canvas.width = image.width;
+            canvas.height = image.height;
+
+            // Рисуємо зображення на canvas
+            ctx.drawImage(image, 0, 0);
+
+            // Отримуємо URL картинки з canvas
+            var imageDataUrl = canvas.toDataURL("image/jpeg");
+
+            // Встановлюємо URL як href для скачування
+            downloadLink.href = imageDataUrl;
+
+            // Симулюємо клік по посиланню для запуску скачування
+            downloadLink.click();
+        });
+
+        image.addEventListener("dblclick", function (event) {
+            var x = event.clientX - image.getBoundingClientRect().left;
+            var y = event.clientY - image.getBoundingClientRect().top;
+
+            // Створення canvas для малювання зображення
+            var newCanvas = document.createElement("canvas");
+            newCanvas.width = image.width;
+            newCanvas.height = image.height;
+            var newCtx = newCanvas.getContext("2d");
+            newCtx.drawImage(image, 0, 0, image.width, image.height);
+
+            // Отримання даних пікселів на вказаних координатах
+            var pixelData = newCtx.getImageData(x, y, 1, 1).data;
+
+            // pixelData містить дані пікселя у вигляді масиву [R, G, B, A]
+            var red = pixelData[0];
+            var green = pixelData[1];
+            var blue = pixelData[2];
+
+            var hsl = rgbToHsl(red, green, blue);
+
+            hInput.value = hsl[0].toFixed(2) * 360;
+            sInput.value = hsl[1].toFixed(2);
+            lInput.value = hsl[2].toFixed(2);
+
+        });
+
+        image.addEventListener("click", function (event) {
+
+            if(flag == false)
+            {
+                selection.endX = 1;
+                selection.endY = 1;
+                canvas.width = image.width
+                canvas.height = image.height;
+
+                ctx.drawImage(image, 0, 0, image.width, image.height);
+
+                // Отримання масиву байтів виділеної області
+                var selectedImageData = getSelectedImageData();
+
+                // Виклик функції для обробки даних на клієнті
+                processImageData(selectedImageData);
+
+                var imageDataUrl = canvas.toDataURL("image/png");
+
+                // Встановити URL як джерело зображення для тегу img
+                image.src = imageDataUrl;
+
+                flag = true;
+            }
+
             if (!selection.isSelecting) {
                 // Починаємо виділення
                 selection.isSelecting = true;
@@ -165,19 +245,45 @@
                 selection.endX = parseInt(selection.endX);
                 selection.endY = parseInt(selection.endY);
 
+                var validationSummary = document.querySelector(".fractal-pages__form-valid");
+
+                // Перевірка на діапазон значень H
+                if (hInput.value == "" || hInput.value < 0 || hInput.value > 360) {
+                    // Виведення повідомлення про помилку
+                    validationSummary.innerHTML = "Error: value H must be in range 0 to 360!";
+                    validationSummary.classList.add("text-danger");
+                    return;
+                } else {
+                    // Очищення повідомлень про помилки, якщо значення є в межах
+                    validationSummary.innerHTML = "";
+                    validationSummary.classList.remove("text-danger");
+                }
+
+                var minX = Math.min(selection.startX, selection.endX);
+                var minY = Math.min(selection.startY, selection.endY);
+                var maxX = Math.max(selection.startX, selection.endX);
+                var maxY = Math.max(selection.startY, selection.endY);
+
+                if (minX == maxX || minY == maxY)
+                {
+                    return;
+                }
+                
+                selection.startX = minX;
+                selection.startY = minY;
+                selection.endX = maxX;
+                selection.endY = maxY;
+
+                canvas.width = image.width
+                canvas.height = image.height;
+
                 ctx.drawImage(image, 0, 0, image.width, image.height);
-                console.log(canvas.width, canvas.height);
-
-
 
                 // Отримання масиву байтів виділеної області
                 var selectedImageData = getSelectedImageData();
 
                 // Виклик функції для обробки даних на клієнті
                 processImageData(selectedImageData);
-
-                canvas.width = image.naturalWidth;
-                canvas.height = image.naturalHeight
 
                 // Отримати URL-представлення зображення з канвасу
                 var imageDataUrl = canvas.toDataURL("image/png");
@@ -202,12 +308,8 @@
         }
 
         function processImageData(imageData) {
-            var hInput = document.getElementById("H");
-            var sInput = document.getElementById("S");
-            var lInput = document.getElementById("L");
 
             var pixelData = imageData.data;
-
 
             var bytes = [];
             for (var i = 0; i < pixelData.length; i += 4) {
@@ -215,12 +317,11 @@
                 var green = pixelData[i + 1];
                 var blue = pixelData[i + 2];
 
-                var hsl = rgbToHslWithAdjustments(red, green, blue, hInput.value, sInput.value, lInput.value);
+                var hsl = rgbToHslWithAdjustments(red, green, blue, hInput.value);
                 var rgb = hslToRgb(hsl[0], hsl[1], hsl[2]);
 
                 bytes.push(rgb[0], rgb[1], rgb[2], 255);
             }
-
 
             // Заміна зображення на канвасі із новими даними
             ctx.putImageData(new ImageData(new Uint8ClampedArray(bytes), selectedCanvas.width, selectedCanvas.height), selection.startX, selection.startY);
@@ -228,72 +329,77 @@
 
 
         function hslToRgb(h, s, l) {
-            // Перевірка коректності введених значень HSL
-            h = (h + 360) % 360; // Забезпечення, що h знаходиться в межах [0, 360)
-            s = Math.max(0, Math.min(100, s)) / 100; // Забезпечення, що s знаходиться в межах [0, 100]
-            l = Math.max(0, Math.min(100, l)) / 100; // Забезпечення, що l знаходиться в межах [0, 100]
+            var r, g, b;
 
-            // Функція для отримання значень RGB з HSL
-            function hueToRgb(p, q, t) {
-                if (t < 0) t += 1;
-                if (t > 1) t -= 1;
-                if (t < 1 / 6) return p + (q - p) * 6 * t;
-                if (t < 1 / 2) return q;
-                if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
-                return p;
-            }
-
-            // Обчислення компонентів RGB
-            let r, g, b;
-
-            if (s === 0) {
-                r = g = b = l; // Відтінок колірності відсутній, отже RGB рівні L
+            if (s == 0) {
+                r = g = b = l; // achromatic
             } else {
-                const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-                const p = 2 * l - q;
-                r = hueToRgb(p, q, h / 360 + 1 / 3);
-                g = hueToRgb(p, q, h / 360);
-                b = hueToRgb(p, q, h / 360 - 1 / 3);
+                function hue2rgb(p, q, t) {
+                    if (t < 0) t += 1;
+                    if (t > 1) t -= 1;
+                    if (t < 1 / 6) return p + (q - p) * 6 * t;
+                    if (t < 1 / 2) return q;
+                    if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+                    return p;
+                }
+
+                var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+                var p = 2 * l - q;
+
+                r = hue2rgb(p, q, h + 1 / 3);
+                g = hue2rgb(p, q, h);
+                b = hue2rgb(p, q, h - 1 / 3);
             }
 
-            // Перетворення в [0, 255]
-            return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+            return [r * 255, g * 255, b * 255];
         }
 
 
-        function rgbToHslWithAdjustments(red, green, blue, h, s, l) {
-            // Нормалізація значень R, G, B до діапазону [0, 1]
-            red /= 255;
-            green /= 255;
-            blue /= 255;
+        function rgbToHslWithAdjustments(r, g, b, hh) {
+            r /= 255, g /= 255, b /= 255;
 
-            // Знаходження максимального та мінімального значення
-            const max = Math.max(red, green, blue);
-            const min = Math.min(red, green, blue);
+            var max = Math.max(r, g, b), min = Math.min(r, g, b);
+            var h, s, l = (max + min) / 2;
 
-            // Обчислення відтінку (hue)
-            var hue;
-            if (max === min) {
-                hue = 0; // Сірий колір, якщо R = G = B
+            if (max == min) {
+                h = s = 0; // achromatic
             } else {
-                const delta = max - min;
-                if (max === red) {
-                    hue = ((green - blue) / delta + (green < blue ? 6 : 0)) * 60;
-                } else if (max === green) {
-                    hue = ((blue - red) / delta + 2) * 60;
-                } else {
-                    hue = ((red - green) / delta + 4) * 60;
+                var d = max - min;
+                s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+                switch (max) {
+                    case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                    case g: h = (b - r) / d + 2; break;
+                    case b: h = (r - g) / d + 4; break;
                 }
+
+                h /= 6;
+            }
+            return [hh/360.0, s, l];
+        }
+
+        function rgbToHsl(r, g, b) {
+            r /= 255, g /= 255, b /= 255;
+
+            var max = Math.max(r, g, b), min = Math.min(r, g, b);
+            var h, s, l = (max + min) / 2;
+
+            if (max == min) {
+                h = s = 0; // achromatic
+            } else {
+                var d = max - min;
+                s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+                switch (max) {
+                    case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                    case g: h = (b - r) / d + 2; break;
+                    case b: h = (r - g) / d + 4; break;
+                }
+
+                h /= 6;
             }
 
-            // Додавання коригувань до відтінку (hue), насиченості (saturation) та світлоти (lightness)
-            hue = parseInt(h);
-            const saturation = Math.max(0, Math.min(100, s + ((max === 0 ? 0 : (max - min) / max) * 100)));
-            const lightness = Math.max(0, Math.min(100, l + (((max + min) / 2) * 100)));
-
-            // Повернення результату у вигляді об'єкта { h, s, l }
-
-            return [ hue, saturation, lightness ];
+            return [h, s, l];
         }
 
     });

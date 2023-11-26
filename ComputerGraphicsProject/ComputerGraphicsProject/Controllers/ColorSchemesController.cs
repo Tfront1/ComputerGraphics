@@ -111,16 +111,5 @@ namespace ComputerGraphicsProject.Controllers
             var jsonResponse = new { C = c, M = m, Y = yy , K = k};
             return new JsonResult(jsonResponse);
         }
-
-
-        [HttpPost]
-        [Produces("application/json")]
-        public IActionResult GetImageData(byte[] fullImageData, int startX, int startY, int endX, int endY, int height, int width)
-        {
-
-            byte[] bytes = HslService.RemakeSelectedAreaByHsl(new ImageDataModelHsl(fullImageData, startX, startY, endX, endY, height, width), 0, 0, 0);
-
-            return Ok();
-        }
     }
 }

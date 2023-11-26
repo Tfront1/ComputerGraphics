@@ -16,6 +16,8 @@
         <input asp-for="M" class="newton-page__form-data__real-img" style="max-width: 70px; margin-left: 5px;  margin-right: 10px;" id="M" />
         <label asp-for="Y" class="fractal-pages__data-text">Y = </label>
         <input asp-for="Y" class="newton-page__form-data__real-img" style="max-width: 70px; margin-left: 5px;  margin-right: 10px;" id="Y" />
+        <label asp-for="K" class="fractal-pages__data-text">K = </label>
+        <input asp-for="K" class="newton-page__form-data__real-img" style="max-width: 70px; margin-left: 5px;  margin-right: 10px;" id="K" />
         <input asp-for="File" type="file" class="form-control" style="width: 128px; margin-left: 20px;" />
     </div>
     <div class="fractal-pages__form-submit">
@@ -23,7 +25,8 @@
     </div>
     <div class="fractal-pages__form-valid">
         <div asp-validation-summary="All" class="text-danger"></div>
-        <span asp-validation-for="C" class="text-danger"></span>
+        <span asp-validation-for="File" class="text-danger"></span>
+
     </div>
 </form>
 <div class="bg-photo"></div>
@@ -79,6 +82,8 @@
                     document.getElementById("C").value = c;
                     document.getElementById("M").value = m;
                     document.getElementById("Y").value = y;
+                    document.getElementById("K").value = k;
+
                     //Тут короче допишеш шоб ще міняло значення в k полі
                 },
                 error: function (error) {

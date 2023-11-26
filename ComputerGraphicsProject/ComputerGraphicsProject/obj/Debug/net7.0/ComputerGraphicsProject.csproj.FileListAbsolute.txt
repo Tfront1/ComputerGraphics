@@ -73,3 +73,4 @@ D:\Minecraft\Labs\VS\KG\ComputerGraphics\ComputerGraphicsProject\ComputerGraphic
 D:\Minecraft\Labs\VS\KG\ComputerGraphics\ComputerGraphicsProject\ComputerGraphicsProject\obj\Debug\net7.0\ComputerGraphicsProject.pdb
 D:\Minecraft\Labs\VS\KG\ComputerGraphics\ComputerGraphicsProject\ComputerGraphicsProject\obj\Debug\net7.0\ComputerGraphicsProject.genruntimeconfig.cache
 D:\Minecraft\Labs\VS\KG\ComputerGraphics\ComputerGraphicsProject\ComputerGraphicsProject\obj\Debug\net7.0\ref\ComputerGraphicsProject.dll
+D:\Minecraft\Labs\VS\KG\ComputerGraphics\ComputerGraphicsProject\ComputerGraphicsProject\obj\Debug\net7.0\ComputerGraphicsProject.sourcelink.json
