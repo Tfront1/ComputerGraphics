@@ -4,18 +4,20 @@
     <div class="fractal-pages__img-container">
         <img class="fractal-pages__img" id="fractalImage" src="@Url.Action("GetHslImage")" />
     </div>
-    <a class="fractal-pages__dwnld-buttn-container" href="@Url.Action("GetHslImage", "ColorSchemes")" download="hsl.jpeg"></a>
+    <a class="fractal-pages__dwnld-buttn-container" id="downloadLink" download="hsl.jpeg"></a>
 </div>
 
 
 <form asp-action="Hsl" enctype="multipart/form-data">
     <div class="fractal-pages__form-data">
         <label asp-for="H" class="fractal-pages__data-text">H = </label>
-        <input asp-for="H" class="newton-page__form-data__real-img" style="max-width: 70px; margin-left: 5px; margin-right: 10px;" />
+        <input asp-for="H" class="newton-page__form-data__real-img" style="max-width: 70px; margin-left: 5px; margin-right: 10px;" id="H"/>
         <label asp-for="S" class="fractal-pages__data-text">S = </label>
-        <input asp-for="S" class="newton-page__form-data__real-img" style="max-width: 70px; margin-left: 5px;  margin-right: 10px;" />
+        <input asp-for="S" class="newton-page__form-data__real-img" style="max-width: 70px; margin-left: 5px;  margin-right: 10px;" id="S"/>
         <label asp-for="L" class="fractal-pages__data-text">L = </label>
-        <input asp-for="L" class="newton-page__form-data__real-img" style="max-width: 70px; margin-left: 5px;  margin-right: 10px;" />
+        <input asp-for="L" class="newton-page__form-data__real-img" style="max-width: 70px; margin-left: 5px;  margin-right: 10px;" id="L"/>
+        <input asp-for="File" type="file" class="form-control" style="width: 128px; margin-left: 20px;" />
+
     </div>
     <div class="fractal-pages__form-submit">
         <input class="fractal-pages__generate-button" type="submit" value="" />
@@ -25,3 +27,382 @@
     </div>
 </form>
 <div class="bg-photo"></div>
+
+
+<!--
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var image = document.getElementById("fractalImage");
+
+        var image = document.getElementById("fractalImage");
+        var canvas = document.createElement("canvas");
+        var ctx = canvas.getContext("2d");
+        var imageData;
+
+        image.onload = function () {
+            canvas.width = image.width;
+            canvas.height = image.height;
+            ctx.drawImage(image, 0, 0, image.width, image.height);
+
+            // Тепер ви можете викликати getImageData
+            imageData = getImageData();
+            console.log(imageData);
+        };
+
+        var selection = {
+            isSelecting: false,
+            startX: 0,
+            startY: 0,
+            endX: 0,
+            endY: 0
+        };
+
+        image.addEventListener("mousedown", function (event) {
+            if (!selection.isSelecting) {
+                // Починаємо виділення
+                selection.isSelecting = true;
+                selection.startX = event.clientX - image.getBoundingClientRect().left;
+                selection.startY = event.clientY - image.getBoundingClientRect().top;
+            } else {
+                // Завершуємо виділення
+                selection.isSelecting = false;
+                selection.endX = event.clientX - image.getBoundingClientRect().left;
+                selection.endY = event.clientY - image.getBoundingClientRect().top;
+
+                console.log(selection);
+                
+                var formData = new FormData();
+                formData.append("fullImageData", getImageData());
+                formData.append("startX", parseInt(selection.startX));
+                formData.append("startY", parseInt(selection.startY));
+                formData.append("endX", parseInt(selection.endX));
+                formData.append("endY", parseInt(selection.endY));
+                formData.append("height", image.height);
+                formData.append("width", image.width);
+
+                // Отправка масивів байтів на сервер за допомогою AJAX-запиту
+                sendImageDataToServer(formData);
+                
+            }
+        });
+
+        function sendImageDataToServer(formData) {
+            console.log(formData);
+            // Відправка масивів байтів на сервер за допомогою AJAX-запиту
+            $.ajax({
+                url: "/ColorSchemes/GetImageData",
+                type: "POST",
+                processData: false,  // Важливо встановити параметр processData в false
+                contentType: false,  // Важливо встановити параметр contentType в false
+                data: formData,
+                success: function (response) {
+                    // Оновлення параметрів на сторінці або інші дії
+                    console.log("Server response:", response);
+                },
+                error: function (error) {
+                    console.error("Error sending image data to the server:", error);
+                }
+            });
+        }
+
+        function getImageData() {
+            var imageData = ctx.getImageData(0, 0, image.width, image.height).data;
+
+
+            // Перетворення у формат [R, G, B] для кожного пікселя
+            var bytes = [];
+            for (var i = 0; i < imageData.length; i += 4) {
+                var red = imageData[i];
+                var green = imageData[i + 1];
+                var blue = imageData[i + 2];
+
+                bytes.push(red, green, blue);
+            }
+
+            return bytes;
+        }
+
+        function todo()
+        {
+
+        }
+    });
+
+
+</script>
+-->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var image = document.getElementById("fractalImage");
+        var canvas = document.createElement("canvas");
+        var ctx = canvas.getContext("2d");
+
+        var hInput = document.getElementById("H");
+        var sInput = document.getElementById("S");
+        var lInput = document.getElementById("L");
+
+        var downloadLink = document.getElementById("downloadLink");
+
+        var selectedCanvas;
+        var flag = false;
+        
+        var selection = {
+            isSelecting: false,
+            startX: 0,
+            startY: 0,
+            endX: 0,
+            endY: 0
+        };
+
+        downloadLink.addEventListener("click", function () {
+            // Створюємо canvas та отримуємо його контекст
+            var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
+
+            // Задаємо розміри canvas такі ж, як у зображення
+            canvas.width = image.width;
+            canvas.height = image.height;
+
+            // Рисуємо зображення на canvas
+            ctx.drawImage(image, 0, 0);
+
+            // Отримуємо URL картинки з canvas
+            var imageDataUrl = canvas.toDataURL("image/jpeg");
+
+            // Встановлюємо URL як href для скачування
+            downloadLink.href = imageDataUrl;
+
+            // Симулюємо клік по посиланню для запуску скачування
+            downloadLink.click();
+        });
+
+        image.addEventListener("dblclick", function (event) {
+            var x = event.clientX - image.getBoundingClientRect().left;
+            var y = event.clientY - image.getBoundingClientRect().top;
+
+            // Створення canvas для малювання зображення
+            var newCanvas = document.createElement("canvas");
+            newCanvas.width = image.width;
+            newCanvas.height = image.height;
+            var newCtx = newCanvas.getContext("2d");
+            newCtx.drawImage(image, 0, 0, image.width, image.height);
+
+            // Отримання даних пікселів на вказаних координатах
+            var pixelData = newCtx.getImageData(x, y, 1, 1).data;
+
+            // pixelData містить дані пікселя у вигляді масиву [R, G, B, A]
+            var red = pixelData[0];
+            var green = pixelData[1];
+            var blue = pixelData[2];
+
+            var hsl = rgbToHsl(red, green, blue);
+
+            hInput.value = hsl[0].toFixed(2) * 360;
+            sInput.value = hsl[1].toFixed(2);
+            lInput.value = hsl[2].toFixed(2);
+
+        });
+
+        image.addEventListener("click", function (event) {
+
+            if(flag == false)
+            {
+                selection.endX = 1;
+                selection.endY = 1;
+                canvas.width = image.width
+                canvas.height = image.height;
+
+                ctx.drawImage(image, 0, 0, image.width, image.height);
+
+                // Отримання масиву байтів виділеної області
+                var selectedImageData = getSelectedImageData();
+
+                // Виклик функції для обробки даних на клієнті
+                processImageData(selectedImageData);
+
+                var imageDataUrl = canvas.toDataURL("image/png");
+
+                // Встановити URL як джерело зображення для тегу img
+                image.src = imageDataUrl;
+
+                flag = true;
+            }
+
+            if (!selection.isSelecting) {
+                // Починаємо виділення
+                selection.isSelecting = true;
+                selection.startX = event.clientX - image.getBoundingClientRect().left;
+                selection.startY = event.clientY - image.getBoundingClientRect().top;
+                selection.startX = parseInt(selection.startX);
+                selection.startY = parseInt(selection.startY);
+
+            } else {
+                // Завершуємо виділення
+                selection.isSelecting = false;
+                selection.endX = event.clientX - image.getBoundingClientRect().left;
+                selection.endY = event.clientY - image.getBoundingClientRect().top;
+                selection.endX = parseInt(selection.endX);
+                selection.endY = parseInt(selection.endY);
+
+                var validationSummary = document.querySelector(".fractal-pages__form-valid");
+
+                // Перевірка на діапазон значень H
+                if (hInput.value == "" || hInput.value < 0 || hInput.value > 360) {
+                    // Виведення повідомлення про помилку
+                    validationSummary.innerHTML = "Error: value H must be in range 0 to 360!";
+                    validationSummary.classList.add("text-danger");
+                    return;
+                } else {
+                    // Очищення повідомлень про помилки, якщо значення є в межах
+                    validationSummary.innerHTML = "";
+                    validationSummary.classList.remove("text-danger");
+                }
+
+                var minX = Math.min(selection.startX, selection.endX);
+                var minY = Math.min(selection.startY, selection.endY);
+                var maxX = Math.max(selection.startX, selection.endX);
+                var maxY = Math.max(selection.startY, selection.endY);
+
+                if (minX == maxX || minY == maxY)
+                {
+                    return;
+                }
+                
+                selection.startX = minX;
+                selection.startY = minY;
+                selection.endX = maxX;
+                selection.endY = maxY;
+
+                canvas.width = image.width
+                canvas.height = image.height;
+
+                ctx.drawImage(image, 0, 0, image.width, image.height);
+
+                // Отримання масиву байтів виділеної області
+                var selectedImageData = getSelectedImageData();
+
+                // Виклик функції для обробки даних на клієнті
+                processImageData(selectedImageData);
+
+                // Отримати URL-представлення зображення з канвасу
+                var imageDataUrl = canvas.toDataURL("image/png");
+
+                // Встановити URL як джерело зображення для тегу img
+                image.src = imageDataUrl;
+            }
+        });
+
+        function getSelectedImageData() {
+            // Отримання картинки з інпут-поля файлу
+            selectedCanvas = document.createElement("canvas");
+            selectedCanvas.width = selection.endX - selection.startX;
+            selectedCanvas.height = selection.endY - selection.startY;
+            var selectedCtx = selectedCanvas.getContext("2d");
+
+            // Копіювання виділеної області на окремий canvas
+            selectedCtx.drawImage(image, selection.startX, selection.startY, selectedCanvas.width, selectedCanvas.height, 0, 0, selectedCanvas.width, selectedCanvas.height);
+
+            // Отримання об'єкта ImageData
+            return selectedCtx.getImageData(0, 0, selectedCanvas.width, selectedCanvas.height);
+        }
+
+        function processImageData(imageData) {
+
+            var pixelData = imageData.data;
+
+            var bytes = [];
+            for (var i = 0; i < pixelData.length; i += 4) {
+                var red = pixelData[i];
+                var green = pixelData[i + 1];
+                var blue = pixelData[i + 2];
+
+                var hsl = rgbToHslWithAdjustments(red, green, blue, hInput.value);
+                var rgb = hslToRgb(hsl[0], hsl[1], hsl[2]);
+
+                bytes.push(rgb[0], rgb[1], rgb[2], 255);
+            }
+
+            // Заміна зображення на канвасі із новими даними
+            ctx.putImageData(new ImageData(new Uint8ClampedArray(bytes), selectedCanvas.width, selectedCanvas.height), selection.startX, selection.startY);
+        }
+
+
+        function hslToRgb(h, s, l) {
+            var r, g, b;
+
+            if (s == 0) {
+                r = g = b = l; // achromatic
+            } else {
+                function hue2rgb(p, q, t) {
+                    if (t < 0) t += 1;
+                    if (t > 1) t -= 1;
+                    if (t < 1 / 6) return p + (q - p) * 6 * t;
+                    if (t < 1 / 2) return q;
+                    if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+                    return p;
+                }
+
+                var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+                var p = 2 * l - q;
+
+                r = hue2rgb(p, q, h + 1 / 3);
+                g = hue2rgb(p, q, h);
+                b = hue2rgb(p, q, h - 1 / 3);
+            }
+
+            return [r * 255, g * 255, b * 255];
+        }
+
+
+        function rgbToHslWithAdjustments(r, g, b, hh) {
+            r /= 255, g /= 255, b /= 255;
+
+            var max = Math.max(r, g, b), min = Math.min(r, g, b);
+            var h, s, l = (max + min) / 2;
+
+            if (max == min) {
+                h = s = 0; // achromatic
+            } else {
+                var d = max - min;
+                s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+                switch (max) {
+                    case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                    case g: h = (b - r) / d + 2; break;
+                    case b: h = (r - g) / d + 4; break;
+                }
+
+                h /= 6;
+            }
+            return [hh/360.0, s, l];
+        }
+
+        function rgbToHsl(r, g, b) {
+            r /= 255, g /= 255, b /= 255;
+
+            var max = Math.max(r, g, b), min = Math.min(r, g, b);
+            var h, s, l = (max + min) / 2;
+
+            if (max == min) {
+                h = s = 0; // achromatic
+            } else {
+                var d = max - min;
+                s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+                switch (max) {
+                    case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                    case g: h = (b - r) / d + 2; break;
+                    case b: h = (r - g) / d + 4; break;
+                }
+
+                h /= 6;
+            }
+
+            return [h, s, l];
+        }
+
+    });
+
+
+</script>
