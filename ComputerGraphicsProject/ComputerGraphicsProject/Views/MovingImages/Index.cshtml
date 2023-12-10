@@ -1,5 +1,232 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿
+<div class="fractal-container">
+    <div class="fractal-pages__img-container">
+        <canvas id="parallelogramCanvas" width="400" height="400"></canvas>
+    </div>
+    <a class="fractal-pages__dwnld-buttn-container" id="downloadLink" download="movingImages.jpeg"></a>
+</div>
+<div class="fractal-pages__form-data">
+    <label for="point1" class="fractal-pages__data-text">Point 1</label>
+    <input type="text" id="point1" placeholder="e.g., 50,100" />
+
+    <label for="point2" class="fractal-pages__data-text">Point 2</label>
+    <input type="text" id="point2" placeholder="e.g., 150,100" />
+
+    <label for="point3" class="fractal-pages__data-text">Point 3</label>
+    <input type="text" id="point3" placeholder="e.g., 200,200" />
+</div>
+
+<div class="fractal-pages__form-data">
+    <label for="lineParams" class="fractal-pages__data-text">Enter line parameters (a, b): </label>
+    <input type="text" id="lineParams" placeholder="e.g., 1,0" />
+</div>
+<div class="fractal-pages__form-submit">
+    <input class="fractal-pages__generate-button" id="doButton" value="" />
+</div>
+<div class="fractal-pages__form-valid">
+    <div class="text-danger" id="errors"></div>
+</div>
+
+<div class="bg-photo"></div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () { 
+        var canvas = document.getElementById('parallelogramCanvas');
+        var context = canvas.getContext('2d');
+
+        context.fillStyle = 'white';
+        context.fillRect(0, 0, canvas.width, canvas.height);
+
+        var doButton = document.getElementById("doButton");
+        var validationSummary = document.getElementById("errors");
+
+
+        doButton.addEventListener('click', function () {
+            // Зчитування значень інпутів
+            var point1Input = document.getElementById('point1').value;
+            var point2Input = document.getElementById('point2').value;
+            var point3Input = document.getElementById('point3').value;
+            var lineParamsInput = document.getElementById('lineParams').value;
+
+            var point1 = parseCoordinates(point1Input);
+            var point2 = parseCoordinates(point2Input);
+            var point3 = parseCoordinates(point3Input);
+
+            var lineParams = parseCoordinates(lineParamsInput);
+            lineParams.y = canvas.height - lineParams.y;
+
+            validationSummary.innerHTML = "";
+
+            if (isValidPoint(point1) && isValidPoint(point2) && isValidPoint(point3) && isValidLineParams(lineParams)) {
+                drawParallelogram(point1, point2, point3, lineParams);
+            } else {
+                validationSummary.innerHTML = "Error: Wrong values(0-400)!";
+            }
+        });
+
+        function isValidPoint(point) {
+            if (isNaN(point.x) || isNaN(point.y)) {
+                return false;
+            }
+            if (point.x < 0 || point.y < 0 || point.x > 400 || point.y > 400) { 
+                return false;
+            }
+            return true;
+        }
+
+        function isValidLineParams(params) {
+
+            if (isNaN(params.x) || isNaN(params.y)) {
+                return false;
+            }
+            return true;
+        }
+
+        function setWhiteBackground() {
+            context.fillStyle = 'white';
+            context.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function parseCoordinates(input) {
+            var coordinates = input.split(',').map(function (coord) {
+                return parseFloat(coord.trim());
+            });
+
+            return { x: coordinates[0], y: canvas.height - coordinates[1] };
+        }
+        
+        function mirrorReflection1(point, lineParams) {
+            var a = lineParams.x;
+            var b = lineParams.y;
+
+            var x = point.x;
+            var y = context.canvas.height - point.y;
+
+            // Матриця афінного перетворення
+            var transformationMatrix = [
+                [1, 0, 0],
+                [0, -1, 0],
+                [0, 2 * b, 1]
+            ];
+
+            // Вхідний вектор
+            var inputVector = [x, y, 1];
+
+            // Матричне множення
+            var resultVector = multiplyMatrix(transformationMatrix, inputVector);
+
+            // Нормалізація координат
+            var mirroredY = context.canvas.height - resultVector[1];
+
+            return { x: resultVector[0], y: mirroredY };
+        }
+
+        // Функція для множення матриці на вектор
+        function multiplyMatrix(matrix, vector) {
+            var result = [];
+            for (var i = 0; i < matrix.length; i++) {
+                var sum = 0;
+                for (var j = 0; j < vector.length; j++) {
+                    sum += matrix[i][j] * vector[j];
+                }
+                result.push(sum);
+            }
+            return result;
+        }
+        
+       
+        function mirrorReflection(point, lineParams) {
+            var a = lineParams.x;
+            var b = lineParams.y;
+
+            var x = point.x;
+            var y = context.canvas.height - point.y;
+
+            var d = (x + (y - b) * a) / (a * a + 1);
+
+            var mirroredX = 2 * d - x;
+            var mirroredY = 2 * d * a - y + 2 * b;
+
+            // Нормалізація координат
+            mirroredY = context.canvas.height - mirroredY;
+
+            return { x: mirroredX, y: mirroredY };
+        }
+
+
+        
+
+        function drawParallelogram(point1, point2, point3, lineParams) {
+            setWhiteBackground();
+
+            // Колір паралелограму
+            context.beginPath();
+            context.moveTo(point1.x, point1.y);
+            context.lineTo(point2.x, point2.y);
+            context.lineTo(point3.x, point3.y);
+            context.lineTo(point1.x + (point3.x - point2.x), point1.y + (point3.y - point2.y));
+            context.closePath();
+            context.strokeStyle = 'blue';
+            context.stroke();
+
+
+            // Пряма у = ax + b
+            context.beginPath();
+            let xx = 0;
+            let yy = 0;
+            for (let x = 0; x <= context.canvas.width; x++) {
+                let temp = x * lineParams.x + lineParams.y;
+                if (temp > context.canvas.height) {
+                    break;
+                }
+                yy = temp;
+                xx = x;
+            }
+
+            context.moveTo(0, context.canvas.height - lineParams.y);
+            context.lineTo(xx, context.canvas.height - yy);
+            context.strokeStyle = 'red';
+            context.stroke();
+            
+           
+            // Відзеркалений паралелограм
+            var mirroredPoint1 = mirrorReflection(point1, lineParams);
+            var mirroredPoint2 = mirrorReflection(point2, lineParams);
+            var mirroredPoint3 = mirrorReflection(point3, lineParams);
+            var mirroredPoint4 = mirrorReflection({ x: point1.x + (point3.x - point2.x), y: point1.y + (point3.y - point2.y) }, lineParams);
+
+            context.beginPath();
+            context.moveTo(mirroredPoint1.x, mirroredPoint1.y);
+            context.lineTo(mirroredPoint2.x, mirroredPoint2.y);
+            context.lineTo(mirroredPoint3.x, mirroredPoint3.y);
+            context.lineTo(mirroredPoint4.x, mirroredPoint4.y);
+            context.closePath();
+            context.strokeStyle = 'green';
+            context.stroke();
+
+            console.log(mirroredPoint1);
+            console.log(mirroredPoint2);
+            console.log(mirroredPoint3);
+            console.log(mirroredPoint4);
+        }
+
+
+        var downloadLink = document.getElementById("downloadLink");
+
+
+        downloadLink.addEventListener('click', function () {
+            // Отримати зображення у форматі data URL
+            var imageDataURL = canvas.toDataURL();
+
+            // Створити посилання для завантаження зображення
+            var link = document.createElement('a');
+            link.href = imageDataURL;
+            link.download = 'movingImages.jpeg';
+            link.click();
+        });
+    });
+
+    
+
+</script>
+

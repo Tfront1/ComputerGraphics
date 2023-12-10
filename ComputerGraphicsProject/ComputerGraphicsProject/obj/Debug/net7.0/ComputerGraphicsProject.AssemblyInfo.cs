@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ComputerGraphicsProject")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7b82277c0409ac6707c2ed8f7b894a4c5ffdb4e3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+901370c5d756794c7c9ba84304778c8f3fd8b314")]
 [assembly: System.Reflection.AssemblyProductAttribute("ComputerGraphicsProject")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ComputerGraphicsProject")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
