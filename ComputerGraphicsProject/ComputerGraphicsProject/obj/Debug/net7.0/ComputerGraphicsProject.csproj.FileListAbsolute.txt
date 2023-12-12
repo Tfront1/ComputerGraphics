@@ -17,7 +17,6 @@ C:\Users\1\Desktop\5sem\CG\Proj\ComputerGraphics\ComputerGraphicsProject\Compute
 C:\Users\1\Desktop\5sem\CG\Proj\ComputerGraphics\ComputerGraphicsProject\ComputerGraphicsProject\bin\Debug\net7.0\Microsoft.Win32.SystemEvents.dll
 C:\Users\1\Desktop\5sem\CG\Proj\ComputerGraphics\ComputerGraphicsProject\ComputerGraphicsProject\bin\Debug\net7.0\System.Drawing.Common.dll
 C:\Users\1\Desktop\5sem\CG\Proj\ComputerGraphics\ComputerGraphicsProject\ComputerGraphicsProject\bin\Debug\net7.0\runtimes\win\lib\net7.0\Microsoft.Win32.SystemEvents.dll
-C:\Users\1\Desktop\5sem\CG\Proj\ComputerGraphics\ComputerGraphicsProject\ComputerGraphicsProject\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
 C:\Users\1\Desktop\5sem\CG\Proj\ComputerGraphics\ComputerGraphicsProject\ComputerGraphicsProject\obj\Debug\net7.0\staticwebassets\msbuild.ComputerGraphicsProject.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Users\1\Desktop\5sem\CG\Proj\ComputerGraphics\ComputerGraphicsProject\ComputerGraphicsProject\obj\Debug\net7.0\staticwebassets\msbuild.build.ComputerGraphicsProject.props
 C:\Users\1\Desktop\5sem\CG\Proj\ComputerGraphics\ComputerGraphicsProject\ComputerGraphicsProject\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.ComputerGraphicsProject.props

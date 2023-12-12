@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Minecraft\\Labs\\VS\\KG\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\ComputerGraphicsProject.csproj": {}
+    "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\ComputerGraphicsProject.csproj": {}
   },
   "projects": {
-    "D:\\Minecraft\\Labs\\VS\\KG\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\ComputerGraphicsProject.csproj": {
+    "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\ComputerGraphicsProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Minecraft\\Labs\\VS\\KG\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\ComputerGraphicsProject.csproj",
+        "projectUniqueName": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\ComputerGraphicsProject.csproj",
         "projectName": "ComputerGraphicsProject",
-        "projectPath": "D:\\Minecraft\\Labs\\VS\\KG\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\ComputerGraphicsProject.csproj",
-        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "D:\\Minecraft\\Labs\\VS\\KG\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\obj\\",
+        "projectPath": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\ComputerGraphicsProject.csproj",
+        "packagesPath": "C:\\Users\\1\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\1\\Desktop\\5sem\\CG\\Proj\\ComputerGraphics\\ComputerGraphicsProject\\ComputerGraphicsProject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\1\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -73,7 +73,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

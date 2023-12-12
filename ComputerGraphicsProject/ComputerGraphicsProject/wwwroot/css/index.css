@@ -2,3 +2,23 @@
 @import url(home.css);
 @import url(fractals.css);
 @import url(fractal-pages.css);
+
+.logo {
+    margin-top: 20px;
+    margin-left: 20px;
+    color: var(--main-text-orange);
+    font-family: Graphik-Semibold;
+    font-size: 1.8rem;
+    font-weight: normal;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    border: 3px solid var(--main-text-white);
+    border-radius: 0 0 25px 25px;
+    padding: 4px;
+}
+
+.header {
+    min-height: 50px;
+}
